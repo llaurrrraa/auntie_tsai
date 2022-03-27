@@ -12,7 +12,7 @@
         <swiper-slide>
           <div class="cow-banner">
             <h1>哞吉了！</h1>
-            <h1>- 乳製品 <span>8</span> 折起 -</h1>
+            <h1>乳製品 <span>8</span> 折起</h1>
             <h2>( 因應冷藏運送有區域限制，下單前請詳閱產品運送資訊 )</h2>
           </div>
         </swiper-slide>
@@ -58,7 +58,7 @@
         }"
       >
         <swiper-slide v-for="item in products" :key="item.id">
-          <ProductCard :card-product="[item]" />
+          <ProductCard :card-product="[item]" @add-to-cart="addToCart"/>
         </swiper-slide>
       </swiper>
     </div>
@@ -100,6 +100,7 @@ import CategoryBtns from "@/components/CategoryBtns.vue";
 import ProductCard from "@/components/ProductCard.vue";
 import Footer from "@/components/Footer.vue";
 import Loading from "@/components/Loading.vue";
+import emitter from "@/libraries/emitt.js";
 import { Swiper, SwiperSlide } from "swiper/vue/swiper-vue";
 import { Navigation, Pagination } from "swiper";
 import "swiper/swiper.scss";
@@ -139,6 +140,19 @@ export default {
           product.qty = 1;
           return product;
         });
+      });
+    },
+    addToCart(id, count = 1) {
+      const data = {
+        product_id: id,
+        qty: count,
+      };
+      this.isLoading = true;
+      const api = `${process.env.VUE_APP_URL}/v2/api/${process.env.VUE_APP_API_PATH}/cart`;
+      this.$http.post(api, { data }).then(() => {
+        this.isLoading = false;
+        emitter.emit("getCart");
+        alert("已加入購物車！");
       });
     },
   },
@@ -360,6 +374,41 @@ body {
   }
 }
 @media (max-width: 767.98px) {
+  .cow-banner {
+    h1 {
+      font-size: 2.25rem;
+    }
+    h2 {
+      font-size: 1rem;
+      padding: 0 1.5rem;
+    }
+  }
+  .rice-banner {
+    h1 {
+      font-size: 2.5rem;
+    }
+    h3 {
+      font-size: 1.25rem;
+      letter-spacing: 5px;
+      span {
+        font-size: 1.5rem;
+        border-radius: 8px;
+      }
+    }
+  }
+  .ppl-banner {
+    h1 {
+      font-size: 2.5rem;
+      padding: 0;
+      letter-spacing: 15px;
+      margin-bottom: 1rem;
+    }
+    h3 {
+      padding: 0 1rem;
+      font-size: 1.5rem;
+      letter-spacing: 5px;
+    }
+  }
   .concept {
     margin-top: 0;
     display: flex;
