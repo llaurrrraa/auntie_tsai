@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0a4fad"],{"096d":function(n,e,c){"use strict";c.r(e);var t=c("7a23");function o(n,e){return Object(t["openBlock"])(),Object(t["createElementBlock"])("h1",null,"這是貼文頁面")}var a=c("6b0d"),r=c.n(a);const d={},u=r()(d,[["render",o]]);e["default"]=u}}]);
+//# sourceMappingURL=chunk-2d0a4fad.3fdcae3b.js.map
