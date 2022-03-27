@@ -46,13 +46,26 @@
               <HeartIcon class="heart-icon pb-1" />
             </div>
             <div class="p-2 bd-highlight nav-item ms-3 position-relative">
-              <router-link to="/cart" class="nav-link shopping-bag-bg">
+              <a
+                class="cart-link"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasRight"
+                aria-controls="offcanvasRight"
+              >
                 <ShoppingBagIcon class="shopping-icon pb-1" />
-                <span
-                  class="position-absolute top-10 start-80 translate-middle badge rounded-pill bg-danger"
-                  >{{ cartData.carts.length }}</span
-                >
-              </router-link>
+              </a>
+              <span
+                class="
+                  position-absolute
+                  top-10
+                  start-80
+                  translate-middle
+                  badge
+                  rounded-pill
+                  bg-danger
+                "
+                >{{ cartData.carts.length }}</span
+              >
             </div>
           </div>
         </div>
@@ -60,6 +73,97 @@
     </div>
   </nav>
   <router-view />
+  <div
+    ref="offcanvasRef"
+    tabindex="-1"
+    class="offcanvas offcanvas-end"
+    id="offcanvasRight"
+    aria-labelledby="offcanvasRightLabel"
+  >
+    <div class="offcanvas-header">
+      <h5 id="offcanvasRightLabel">購物車清單</h5>
+      <button
+        type="button"
+        class="btn-close text-reset"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="offcanvas-body">
+      <table class="table align-middle table-borderless table-hover">
+        <thead>
+          <tr>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in cartData.carts" :key="index">
+            <td>
+              <img :src="item.product.imageUrl" alt="" class="cart-img" />
+            </td>
+            <td>
+              <ul>
+                <li class="td-title">
+                  <h4>{{ item.product.title }}</h4>
+                </li>
+                <li class="td-price">
+                  價格：$ {{ item.product.price }} / {{ item.product.unit }}
+                </li>
+              </ul>
+            </td>
+            <td>
+              <div class="input-group input-group-sm qtyBtn">
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="button-minus1"
+                  @click="minusCart()"
+                >
+                  －
+                </button>
+                <input
+                  type="text"
+                  style="max-width: 50px; text-align: center"
+                  class="form-control"
+                  placeholder=""
+                  aria-label="Example text with button addon"
+                  aria-describedby="button-addon1"
+                  v-model="item.qty"
+                  readonly
+                />
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="button-add1"
+                  @click="addCart()"
+                >
+                  ＋
+                </button>
+              </div>
+            </td>
+            <td>
+              <button type="btn" class="btn btn-outline-dark">X</button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="text-end">
+              總金額：$ {{ cartData.final_total }}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+      <a
+        href="#/cart"
+        type="btn"
+        class="btn btn-lg go-cart"
+        @click.prevent="goToCart"
+      >
+        前往結賬&emsp;〉
+      </a>
+    </div>
+  </div>
   <loading v-model:active="isLoading"></loading>
 </template>
 
@@ -81,6 +185,13 @@ export default {
     HeartIcon,
     ShoppingBagIcon,
   },
+  mounted() {
+    this.getCart();
+    // mitt 建立監聽
+    emitter.on("getCart", () => {
+      this.getCart();
+    });
+  },
   methods: {
     getCart() {
       this.$http
@@ -89,21 +200,84 @@ export default {
         )
         .then((res) => {
           this.cartData = res.data.data;
-          // console.log(res);
         });
     },
-  },
-  mounted() {
-    this.getCart();
-    // mitt 建立監聽
-    emitter.on("getCart", () => {
-      this.getCart();
-    });
+    goToCart() {
+      this.$router.push("/cart");
+    },
   },
 };
 </script>
-
 <style lang="scss">
+.cart-link {
+  cursor: pointer;
+  color: #000;
+}
+.offcanvas {
+  display: flex;
+  justify-content: center;
+  .offcanvas-header {
+    justify-content: center;
+    h5 {
+      position: relative;
+      border-radius: 5px;
+      color: #8c8c8c;
+      padding: 5px 15px;
+      letter-spacing: 2px;
+      &::before {
+        position: absolute;
+        content: "";
+        height: 2px;
+        width: 100px;
+        background: #a1a1a1;
+        top: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+}
+.table {
+  letter-spacing: 1px;
+  tbody {
+    tr {
+      td {
+        .cart-img {
+          width: 80px;
+          object-fit: cover;
+        }
+        ul {
+          padding-left: 0;
+          list-style: none;
+          margin-bottom: 0;
+        }
+        .td-title {
+          h4 {
+            font-weight: 700;
+          }
+        }
+        .td-price {
+          color: #8c8c8c;
+        }
+      }
+    }
+  }
+  tfoot {
+    color: #8c8c8c;
+  }
+}
+.go-cart {
+  width: 100%;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background-color: rgba(101, 255, 191, 0.5);
+}
+.go-cart:hover {
+  background-color: #65ffbf;
+}
+.offcanvas-end {
+  width: 600px;
+}
 .router-link {
   text-decoration: none;
   color: #000;
@@ -131,5 +305,38 @@ export default {
 .shopping-bag-bg:hover {
   background-color: #65ffbf;
   border-radius: 5px;
+}
+@media (max-width: 768px) {
+  .offcanvas-end {
+    width: 300px;
+  }
+  .offcanvas-header h5 {
+    font-size: 1rem;
+    &::before {
+      top: 30px !important;
+      width: 90px;
+    }
+  }
+  .offcanvas-body {
+    .table {
+      tbody {
+        tr {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          td {
+            ul {
+              .td-title > h4 {
+                font-size: 1rem;
+                text-align: center;
+              }
+              .td-price {
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 </style>
