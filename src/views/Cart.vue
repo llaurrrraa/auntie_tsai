@@ -97,6 +97,15 @@
             </template>
           </tbody>
         </table>
+        <div class="deleteBtn d-grid gap-2 d-md-flex justify-content-md-end">
+          <button
+            type="btn"
+            class="clear-btn mt-3 btn btn-outline-dark"
+            @click="deleteCartAll(cartData)"
+          >
+            清除所有購物車
+          </button>
+        </div>
       </div>
       <div class="col-lg-4 cart-right">
         <div class="title mb-5">
@@ -132,7 +141,7 @@
     </div>
   </div>
   <Footer />
-  <Loading :is-loading="isLoading" :is-loading-item="isLoadingItem"/>
+  <Loading :is-loading="isLoading" :is-loading-item="isLoadingItem" />
 </template>
 
 <script>
@@ -203,12 +212,30 @@ export default {
         });
     },
     deleteCart(id) {
-      // console.log(id);
+      this.isLoading = true;
       const api = `${process.env.VUE_APP_URL}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`;
       this.$http.delete(api).then(() => {
+        this.isLoading = false;
         this.getCart();
         emitter.emit("getCart");
       });
+    },
+    deleteCartAll(item) {
+      this.isLoading = true;
+      console.log(item.carts.length);
+      if (item.carts.length === 0) {
+        this.isLoading = false;
+        this.$swal("購物車是空的呦～", "還沒買菜嗎，很多在特價噎！", "error");
+      } else {
+        const api = `${process.env.VUE_APP_URL}/v2/api/${process.env.VUE_APP_API_PATH}/carts`;
+        this.$http.delete(api).then(() => {
+          this.isLoading = false;
+          this.getCart();
+          emitter.emit("getCart");
+          this.$swal("已刪除購物車", "詳情請至購物車查看", "success");
+        });
+        this.isLoading = false;
+      }
     },
     moveToOrder() {
       this.$router.push("/order");
@@ -216,14 +243,17 @@ export default {
   },
   mounted() {
     this.getCart();
+    console.log(this.cartData);
   },
 };
 </script>
 
 <style lang="scss">
-.cart{
+.cart {
   min-height: calc(100vh - 216px);
+  margin-bottom: 5rem;
 }
+
 .cart-left {
   .title {
     display: flex;
@@ -269,6 +299,8 @@ export default {
         }
       }
     }
+  }
+  .clear-btn {
   }
 }
 .cart-right {

@@ -71,6 +71,7 @@ export default {
         .then(() => {
           this.isLoadingItem = "";
           emitter.emit("getCart");
+          this.$swal("成功加到購物車 !", "詳情請至購物車查看", "success");
         });
     },
   },
