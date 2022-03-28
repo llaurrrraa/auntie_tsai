@@ -4,10 +4,12 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 import "bootstrap";
 
+import { ValidationProvider, extend } from 'vee-validate';
+import VueI18n from 'vue-i18n';
 import { Form, Field, ErrorMessage, defineRule, configure } from "vee-validate";
-import AllRules from "@vee-validate/rules";
-import { localize, setLocale } from "@vee-validate/i18n";
-import zhTW from "@vee-validate/i18n/dist/locale/zh_TW.json";
+import AllRules from "vee-validate/rules";
+import { localize, setLocale } from "vee-validate/i18n";
+import zhTW from "vee-validate/i18n/dist/locale/zh_TW.json";
 
 import Loading from "vue-loading-overlay"; //component
 import "vue-loading-overlay/dist/vue-loading.css"; //style
@@ -23,6 +25,10 @@ const options = {
   cancelButtonColor: '#ff7674',
 };
 
+extend('secret', {
+  validate: value => value === 'example',
+  message: 'This is not the magic word'
+});
 
 Object.keys(AllRules).forEach((rule) => {
   defineRule(rule, AllRules[rule]);
@@ -41,6 +47,8 @@ app.component("Loading", Loading);
 app.component("Form", Form);
 app.component("Field", Field);
 app.component("ErrorMessage", ErrorMessage);
+app.component('ValidationProvider', ValidationProvider);
+app.use(VueI18n);
 app.use(VueAxios, axios, Loading);
 app.use(VueSweetalert2, options);
 app.use(router);

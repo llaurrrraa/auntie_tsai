@@ -1,118 +1,128 @@
 <template>
   <div class="cart container d-flex flex-column">
+    <div class="cart-title">
+      <!-- <ShoppingBagIcon class="sb-icon" />
+      <h6>購物車</h6> -->
+      <ul>
+        <li class="col-4">
+          <span :style="{backgroundColor:'#8c8c8c'}">1</span>
+          <p :style="{fontWeight:'700'}">購物車</p>
+          <div class="bar" :class="{'active':true}"></div>
+        </li>
+        <li class="col-4">
+          <span>2</span>
+          <p>填寫資料</p>
+          <div class="bar"></div>
+        </li>
+        <li class="col-4">
+          <span>3</span>
+          <p>訂單確認</p>
+          <div class="bar"></div>
+        </li>
+      </ul>
+    </div>
     <div class="row mt-5">
       <div class="col-lg-8 cart-left">
-        <div class="title mb-5">
-          <ShoppingBagIcon class="sb-icon" />
-          <h6>購物車</h6>
-        </div>
-        <table class="table align-center align-middle">
-          <thead class="text-secondary">
-            <tr>
-              <th class="text-center" style="font-weight: 300">產品名稱</th>
-              <th class="text-center" style="font-weight: 300">產品照片</th>
-              <th class="text-center" style="font-weight: 300">數量單位</th>
-              <th class="text-center" style="font-weight: 300">單價</th>
-              <th class="text-center" style="font-weight: 300">總價</th>
-              <th class="text-center" style="font-weight: 300">刪除</th>
-            </tr>
-          </thead>
-          <tbody>
-            <template v-if="cartData.carts.length > 0">
-              <tr v-for="item in cartData.carts" :key="item.product_id">
-                <td class="text-center">{{ item.product.title }}</td>
-                <td>
-                  <img :src="item.product.imageUrl" style="max-width: 150px" />
-                </td>
-                <td class="text-center" style="width: 180px">
-                  <div class="input-group">
-                    <loading
-                      v-show="isLoadingItem === item.id"
-                      :is-full-page="false"
-                      ><div class="loadingio-spinner-spinner-n3aayyd8xj">
-                        <div class="ldio-hpqk1yjwodj"></div>
-                      </div>
-                    </loading>
-                    <div class="input-group input-group-sm qtyBtn">
-                      <button
-                        class="btn btn-outline-secondary"
-                        type="button"
-                        id="button-minus1"
-                        @click="minusCart(item)"
-                      >
-                        －
-                      </button>
-                      <input
-                        type="text"
-                        style="max-width: 50px; text-align: center"
-                        class="form-control"
-                        placeholder=""
-                        aria-label="Example text with button addon"
-                        aria-describedby="button-addon1"
-                        v-model="item.qty"
-                        readonly
-                      />
-                      <button
-                        class="btn btn-outline-secondary"
-                        type="button"
-                        id="button-add1"
-                        @click="addCart(item)"
-                      >
-                        ＋
-                      </button>
-                    </div>
-                    <span class="unit"> {{ item.product.unit }} </span>
-                  </div>
-                </td>
-                <td class="text-end">
-                  <del>原價 ${{ item.product.origin_price }}</del>
-                  <br />
-                  <span
-                    >現在特價
-                    <span class="sale-price"
-                      >${{ item.product.price }}</span
-                    ></span
-                  >
-                </td>
-                <td class="text-center final-price">
-                  <span>$ {{ item.final_total }}</span>
-                </td>
-                <td class="text-center">
-                  <button
-                    type="button"
-                    class="btn btn-light"
-                    @click="deleteCart(item.id)"
-                  >
-                    X
-                  </button>
-                </td>
-              </tr>
-            </template>
-            <template v-else>
+        <div class="table-responsive">
+          <table class="table align-center align-middle">
+            <thead class="text-secondary">
               <tr>
-                <td colspan="6" class="empty-txt text-center table-light">
-                  購物車很空哦 ～
-                </td>
+                <th class="text-center"></th>
+                <th class="text-center"></th>
+                <th class="text-center"></th>
+                <th class="text-end">單價</th>
+                <th class="text-center">總價</th>
+                <th class="text-center">刪除</th>
               </tr>
-            </template>
-          </tbody>
-        </table>
-        <div class="deleteBtn d-grid gap-2 d-md-flex justify-content-md-end">
-          <button
-            type="btn"
-            class="clear-btn mt-3 btn btn-outline-dark"
-            @click="deleteCartAll(cartData)"
-          >
-            清除所有購物車
-          </button>
+            </thead>
+            <tbody>
+              <template v-if="cartData.carts.length > 0">
+                <tr v-for="item in cartData.carts" :key="item.product_id">
+                  <td class="text-center td-title">{{ item.product.title }}</td>
+                  <td>
+                    <img :src="item.product.imageUrl" />
+                  </td>
+                  <td class="text-center">
+                    <div class="input-group">
+                      <loading
+                        v-show="isLoadingItem === item.id"
+                        :is-full-page="false"
+                        ><div class="loadingio-spinner-spinner-n3aayyd8xj">
+                          <div class="ldio-hpqk1yjwodj"></div>
+                        </div>
+                      </loading>
+                      <div class="input-group input-group-sm qtyBtn">
+                        <button
+                          class="btn btn-outline-secondary"
+                          type="button"
+                          id="button-minus1"
+                          @click="minusCart(item)"
+                        >
+                          －
+                        </button>
+                        <input
+                          type="text"
+                          style="max-width: 50px; text-align: center"
+                          class="form-control"
+                          placeholder=""
+                          aria-label="Example text with button addon"
+                          aria-describedby="button-addon1"
+                          v-model="item.qty"
+                          readonly
+                        />
+                        <button
+                          class="btn btn-outline-secondary"
+                          type="button"
+                          id="button-add1"
+                          @click="addCart(item)"
+                        >
+                          ＋
+                        </button>
+                      </div>
+                      <span class="unit"> {{ item.product.unit }} </span>
+                    </div>
+                  </td>
+                  <td class="text-end">
+                    <del>原價 ${{ item.product.origin_price }}</del>
+                    <br />
+                    <strong
+                      >特價
+                      <span class="sale-price"
+                        >${{ item.product.price }}</span
+                      ></strong
+                    >
+                  </td>
+                  <td class="text-center final-price">
+                    <span>$ {{ item.final_total }}</span>
+                  </td>
+                  <td class="text-center">
+                    <button
+                      type="button"
+                      class="btn btn-light"
+                      @click="deleteCart(item.id)"
+                    >
+                      X
+                    </button>
+                  </td>
+                </tr>
+              </template>
+              <template v-else>
+                <tr>
+                  <td colspan="6" class="empty-txt text-center table-light">
+                    購物車很空哦 ～
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
         </div>
       </div>
       <div class="col-lg-4 cart-right">
-        <div class="title mb-5">
-          <h6>訂單資訊</h6>
-        </div>
+        <div class="title"></div>
         <div class="card mx-auto" style="width: 20rem">
           <div class="card-body">
+            <h6>訂單資訊</h6>
+            <hr />
             <div class="total_price">
               <p class="card-text">總金額</p>
               <p>$ {{ cartData.final_total }}</p>
@@ -147,7 +157,7 @@
 <script>
 import Footer from "@/components/Footer.vue";
 import Loading from "@/components/Loading.vue";
-import { ShoppingBagIcon } from "@heroicons/vue/outline";
+// import { ShoppingBagIcon } from "@heroicons/vue/outline";
 import emitter from "@/libraries/emitt.js";
 export default {
   data() {
@@ -157,10 +167,11 @@ export default {
         carts: "",
       },
       isLoadingItem: "",
+      active:true,
     };
   },
   components: {
-    ShoppingBagIcon,
+    // ShoppingBagIcon,
     Footer,
     Loading,
   },
@@ -247,35 +258,89 @@ export default {
   },
 };
 </script>
-
 <style lang="scss">
 .cart {
   min-height: calc(100vh - 216px);
   margin-bottom: 5rem;
 }
-
-.cart-left {
-  .title {
+ 
+.cart-title {
+  margin:3rem 0 1rem;
+  width:100%;
+  // display: flex;
+  // justify-content: center;
+  ul{
+    width:100%;
     display: flex;
-    justify-content: center;
-    .sb-icon {
-      width: 20px;
-      margin-right: 0.5rem;
-      color: #9c9c9c;
+    justify-content: space-evenly;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  li{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    span{
+      // background-color:#8C8C8C;
+      background-color:#c8c8c8;
+      color:#fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      width:28px;
+      height:28px;
+      margin-bottom: 0.5rem;
     }
-    h6 {
-      margin-bottom: 0;
-      letter-spacing: 1.5px;
-      color: #9c9c9c;
+    p{
+      letter-spacing: 3px;
+      // font-weight: 700;
+      color:#c8c8c8;
+    }
+    .bar{
+      background-color: #dbfff0;
+      height:5px;
+      width:100%;
+    }
+
+    .active{
+      background-color: #65ffbf;
     }
   }
+  .sb-icon {
+    width: 20px;
+    margin-right: 0.5rem;
+    color: #9c9c9c;
+  }
+  h6 {
+    margin-bottom: 0;
+    letter-spacing: 1.5px;
+    color: #9c9c9c;
+  }
+}
+
+.cart-left {
   .table {
+    thead{
+      th{
+        font-weight: 300;
+        font-size: 14px;
+        color:#afafaf;
+      }
+    }
     tbody {
       tr {
         .empty-txt {
           padding: 4rem 0;
           letter-spacing: 1.5px;
           color: rgba(156, 156, 156, 0.5);
+        }
+
+        .td-title {
+          font-weight: 700;
         }
         .text-center {
           .input-group {
@@ -290,6 +355,12 @@ export default {
             margin-top: 0.5rem;
           }
         }
+        img {
+          max-width: 150px;
+        }
+        .text-end del {
+          color: #8c8c8c;
+        }
         .text-end .sale-price {
           color: #0b58ca;
         }
@@ -299,8 +370,6 @@ export default {
         }
       }
     }
-  }
-  .clear-btn {
   }
 }
 .cart-right {
@@ -314,11 +383,38 @@ export default {
     }
   }
   .card {
+    h6 {
+      text-align: center;
+      letter-spacing: 1px;
+      color: #8c8c8c;
+    }
     .total_price {
       display: flex;
       justify-content: space-between;
       p {
         display: inline-block;
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .table-responsive {
+    // background-color: #f3f3f3;
+    margin: 3rem 0;
+    thead {
+      tr {
+        th {
+          font-size: 10px;
+          color: #a3a3a3;
+        }
+      }
+    }
+    tbody {
+      img {
+        max-width: 100px !important;
+      }
+      .text-end del {
+        font-size: 12px;
       }
     }
   }
