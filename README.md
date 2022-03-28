@@ -1,3 +1,2 @@
 Vue_project Auntie_tsai
-<a href="http://localhost:8082/cart#/home">DEMO</a>
- 
+<a href="https://llaurrrraa.github.io/auntie_tsai/#/home">DEMO</a>
