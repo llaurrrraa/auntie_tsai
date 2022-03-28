@@ -58,7 +58,7 @@
         }"
       >
         <swiper-slide v-for="item in products" :key="item.id">
-          <ProductCard :card-product="[item]" @add-to-cart="addToCart"/>
+          <ProductCard :card-product="[item]" @add-to-cart="addToCart" />
         </swiper-slide>
       </swiper>
     </div>
@@ -111,7 +111,7 @@ export default {
   data() {
     return {
       isLoading: false,
-      isLoadingItem:"",
+      isLoadingItem: "",
       icons: [
         "../assets/images/vegetables.png",
         "@/assets/images/fruits.png",
@@ -159,6 +159,14 @@ export default {
   mounted() {
     this.getProducts();
   },
+  // metaInfo: {
+  //     title: 'My Example App',
+  //     titleTemplate: '%s - Yay!',
+  //     htmlAttrs: {
+  //       lang: 'en',
+  //       amp: true
+  //     }
+  //   }
 };
 </script>
 <style lang="scss">

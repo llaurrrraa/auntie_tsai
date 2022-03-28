@@ -3282,6 +3282,11 @@
   "resolved" "https://registry.npmjs.org/deepmerge/-/deepmerge-1.5.2.tgz"
   "version" "1.5.2"
 
+"deepmerge@^4.2.2":
+  "integrity" "sha512-FJ3UgI4gIl+PHZm53knsuSFpE+nESMr7M4v9QcgB7S63Kj/6WqMiFQJpBBYz1Pt+66bZpP3Q7Lye0Oo9MPKEdg=="
+  "resolved" "https://registry.npmjs.org/deepmerge/-/deepmerge-4.2.2.tgz"
+  "version" "4.2.2"
+
 "default-gateway@^4.2.0":
   "integrity" "sha512-h6sMrVB1VMWVrW13mSc6ia/DwYYw5MN6+exNu1OaJeFac5aSAvwM7lZ0NVfTABuSkQelr4h5oebg3KB1XPdjgA=="
   "resolved" "https://registry.npmjs.org/default-gateway/-/default-gateway-4.2.0.tgz"
@@ -8135,6 +8140,11 @@
     "unquote" "~1.1.1"
     "util.promisify" "~1.0.0"
 
+"sweetalert2@11.x":
+  "integrity" "sha512-FSCMcTAo938fq5/bhRN1pUpF9BwyWMZTxB8HdTrDilO8ZmPucRw4uppFkbBPmxjR9OllscFDF9n3GFHUCvMg8g=="
+  "resolved" "https://registry.npmjs.org/sweetalert2/-/sweetalert2-11.4.7.tgz"
+  "version" "11.4.7"
+
 "swiper@^8.0.7":
   "integrity" "sha512-GHjDfxSZdupfU7LrSVOpaNaT7R1D2zxopPGBFz1UOXOtsYvVJLg0k6NvkTAD7qn0ASl5pTti82qoYwvYvIkg4g=="
   "resolved" "https://registry.npmjs.org/swiper/-/swiper-8.0.7.tgz"
@@ -8673,6 +8683,13 @@
   "resolved" "https://registry.npmjs.org/vue-loading-overlay/-/vue-loading-overlay-5.0.3.tgz"
   "version" "5.0.3"
 
+"vue-meta@^2.4.0":
+  "integrity" "sha512-XEeZUmlVeODclAjCNpWDnjgw+t3WA6gdzs6ENoIAgwO1J1d5p1tezDhtteLUFwcaQaTtayRrsx7GL6oXp/m2Jw=="
+  "resolved" "https://registry.npmjs.org/vue-meta/-/vue-meta-2.4.0.tgz"
+  "version" "2.4.0"
+  dependencies:
+    "deepmerge" "^4.2.2"
+
 "vue-router@^4.0.0-0":
   "integrity" "sha512-CPXvfqe+mZLB1kBWssssTiWg4EQERyqJZes7USiqfW9B5N2x+nHlnsM1D3b5CaJ6qgCvMmYJnz+G0iWjNCvXrg=="
   "resolved" "https://registry.npmjs.org/vue-router/-/vue-router-4.0.12.tgz"
@@ -8688,12 +8705,19 @@
     "hash-sum" "^1.0.2"
     "loader-utils" "^1.0.2"
 
+"vue-sweetalert2@^5.0.2":
+  "integrity" "sha512-28pcpmvaFxwoXIUkOWwhZhmsV749jXxha8JicwPoSKyFKR5FhIaZU6UHO5WlUCLIVUI6sAWY6WngK2x/iXYwZg=="
+  "resolved" "https://registry.npmjs.org/vue-sweetalert2/-/vue-sweetalert2-5.0.2.tgz"
+  "version" "5.0.2"
+  dependencies:
+    "sweetalert2" "11.x"
+
 "vue-template-es2015-compiler@^1.9.0":
   "integrity" "sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw=="
   "resolved" "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz"
   "version" "1.9.1"
 
-"vue@^2 || ^3.0.0-0", "vue@^3.0.0", "vue@^3.0.0 || ^2.0.0", "vue@>= 3", "vue@3.2.31":
+"vue@*", "vue@^2 || ^3.0.0-0", "vue@^3.0.0", "vue@^3.0.0 || ^2.0.0", "vue@>= 3", "vue@3.2.31":
   "integrity" "sha512-odT3W2tcffTiQCy57nOT93INw1auq5lYLLYtWpPYQQYQOOdHiqFct9Xhna6GJ+pJQaF67yZABraH47oywkJgFw=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.31.tgz"
   "version" "3.2.31"

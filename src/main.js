@@ -12,6 +12,8 @@ import zhTW from "@vee-validate/i18n/dist/locale/zh_TW.json";
 import Loading from "vue-loading-overlay"; //component
 import "vue-loading-overlay/dist/vue-loading.css"; //style
 
+// import VueMeta from 'vue-meta';
+
 import App from "./App.vue";
 import router from "./router";
 
@@ -26,11 +28,15 @@ configure({
 // 設定預設語系
 setLocale("zh_TW");
 
+
 const app = createApp(App);
 app.component("Loading", Loading);
 app.component("Form", Form);
 app.component("Field", Field);
 app.component("ErrorMessage", ErrorMessage);
 app.use(VueAxios, axios, Loading);
+// app.use(VueMeta, {
+//   refreshOnceOnNavigation: true
+// })
 app.use(router);
 app.mount("#app");
