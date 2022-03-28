@@ -58,7 +58,7 @@
         }"
       >
         <swiper-slide v-for="item in products" :key="item.id">
-          <ProductCard :card-product="[item]" @add-to-cart="addToCart"/>
+          <ProductCard :card-product="[item]" @add-to-cart="addToCart" />
         </swiper-slide>
       </swiper>
     </div>
@@ -111,7 +111,7 @@ export default {
   data() {
     return {
       isLoading: false,
-      isLoadingItem:"",
+      isLoadingItem: "",
       icons: [
         "../assets/images/vegetables.png",
         "@/assets/images/fruits.png",
@@ -152,7 +152,8 @@ export default {
       this.$http.post(api, { data }).then(() => {
         this.isLoading = false;
         emitter.emit("getCart");
-        alert("已加入購物車！");
+        this.$swal("成功加到購物車 !", "詳情請至購物車查看", "success");
+        // alert("已加入購物車！");
       });
     },
   },
@@ -162,6 +163,8 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "~sweetalert2/src/variables";
+@import "~sweetalert2/src/sweetalert2";
 html,
 body {
   width: 100%;
@@ -370,6 +373,20 @@ body {
         background-color: #fff;
         color: #000;
       }
+    }
+  }
+}
+.swal2-container{
+  .swal2-title{
+    letter-spacing: 2px;
+  }
+  .swal2-html-container{
+    letter-spacing: 1px;
+    color: #8c8c8c;
+  }
+  .swal2-actions{
+    .swal2-confirm{
+      color:blue;
     }
   }
 }

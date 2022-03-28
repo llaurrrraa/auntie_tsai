@@ -12,8 +12,17 @@ import zhTW from "@vee-validate/i18n/dist/locale/zh_TW.json";
 import Loading from "vue-loading-overlay"; //component
 import "vue-loading-overlay/dist/vue-loading.css"; //style
 
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 import App from "./App.vue";
 import router from "./router";
+
+const options = {
+  confirmButtonColor: '#65ffbf',
+  cancelButtonColor: '#ff7674',
+};
+
 
 Object.keys(AllRules).forEach((rule) => {
   defineRule(rule, AllRules[rule]);
@@ -32,5 +41,6 @@ app.component("Form", Form);
 app.component("Field", Field);
 app.component("ErrorMessage", ErrorMessage);
 app.use(VueAxios, axios, Loading);
+app.use(VueSweetalert2, options);
 app.use(router);
 app.mount("#app");
