@@ -23,58 +23,90 @@
       <div class="col-lg-8 cart-left">
         <div class="title mb-5"></div>
         <div class="form row">
-          <div class="col mb-3">
-            <label for="NameFormControlInput" class="ms-3 form-label"
-              >｜ 訂購人姓名</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="NameFormControlInput"
-              placeholder=""
-              v-model="form.user.name"
-            />
-          </div>
-          <div class="col">
-            <label for="PhoneFormControlInput" class="ms-3 form-label">｜ 訂購人手機</label>
-            <input
-              type="text"
-              class="form-control"
-              id="PhoneFormControlInput"
-              placeholder=""
-              v-model="form.user.tel"
-            />
-          </div>
-          <div class="col-12 mb-3">
-            <label for="emailFormControlInput" class="ms-3 form-label">｜ email</label>
-            <input
-              type="text"
-              class="form-control"
-              id="emailFormControlInput"
-              placeholder=""
-              v-model="form.user.email"
-            />
-          </div>
-          <div class="col-12 mb-3">
-            <label for="addressFormControlInput" class="ms-3 form-label">｜ 地址</label>
-            <input
-              type="text"
-              class="form-control"
-              id="addressFormControlInput"
-              placeholder=""
-              v-model="form.user.address"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="textareaFormControlInput" class="ms-3 form-label">｜ 想對阿姨說 ..</label>
-            <textarea
-              class="form-control"
-              placeholder="備 註"
-              id="textareaFormControlInput"
-              style="height: 100px"
-              v-model="form.message"
-            ></textarea>
-          </div>
+          <Form
+            ref="form"
+            class="col-md-6"
+            v-slot="{ errors }"
+            @submit="createOrder"
+          >
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <Field
+                id="email"
+                name="email"
+                type="email"
+                class="form-control"
+                :class="{ 'is-invalid': errors['email'] }"
+                placeholder="請輸入 Email"
+                rules="email|required"
+                v-model="form.user.email"
+              ></Field>
+              <ErrorMessage
+                name="email"
+                class="invalid-feedback"
+              ></ErrorMessage>
+            </div>
+            <div class="col mb-3">
+              <label for="NameFormControlInput" class="ms-3 form-label"
+                >｜ 訂購人姓名</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="NameFormControlInput"
+                placeholder=""
+                v-model="form.user.name"
+              />
+            </div>
+            <div class="col">
+              <label for="PhoneFormControlInput" class="ms-3 form-label"
+                >｜ 訂購人手機</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="PhoneFormControlInput"
+                placeholder=""
+                v-model="form.user.tel"
+              />
+            </div>
+            <div class="col-12 mb-3">
+              <label for="emailFormControlInput" class="ms-3 form-label"
+                >｜ email</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="emailFormControlInput"
+                placeholder=""
+                v-model="form.user.email"
+              />
+            </div>
+            <div class="col-12 mb-3">
+              <label for="addressFormControlInput" class="ms-3 form-label"
+                >｜ 地址</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="addressFormControlInput"
+                placeholder=""
+                v-model="form.user.address"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="textareaFormControlInput" class="ms-3 form-label"
+                >｜ 想對阿姨說 ..</label
+              >
+              <textarea
+                class="form-control"
+                placeholder="備 註"
+                id="textareaFormControlInput"
+                style="height: 100px"
+                v-model="form.message"
+              ></textarea>
+            </div>
+          </Form>
         </div>
         <a href="#/cart">〈&emsp;返回購物車</a>
       </div>
