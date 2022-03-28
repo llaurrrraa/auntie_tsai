@@ -384,17 +384,17 @@ body {
     }
   }
 }
-.swal2-container{
-  .swal2-title{
+.swal2-container {
+  .swal2-title {
     letter-spacing: 2px;
   }
-  .swal2-html-container{
+  .swal2-html-container {
     letter-spacing: 1px;
     color: #8c8c8c;
   }
-  .swal2-actions{
-    .swal2-confirm{
-      color:blue;
+  .swal2-actions {
+    .swal2-confirm {
+      color: blue;
     }
   }
 }
