@@ -40,6 +40,10 @@ const routes = [
         path: "order", // 訂單
         component: () => import("../views/Order.vue"),
       },
+      {
+        path: "checkout", // 結帳
+        component: () => import("../views/Checkout.vue"),
+      },
     ],
   },
   {

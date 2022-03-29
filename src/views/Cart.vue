@@ -1,8 +1,6 @@
 <template>
   <div class="cart container d-flex flex-column">
     <div class="cart-title">
-      <!-- <ShoppingBagIcon class="sb-icon" />
-      <h6>購物車</h6> -->
       <ul>
         <li class="col-4">
           <span :style="{backgroundColor:'#8c8c8c'}">1</span>
@@ -157,7 +155,6 @@
 <script>
 import Footer from "@/components/Footer.vue";
 import Loading from "@/components/Loading.vue";
-// import { ShoppingBagIcon } from "@heroicons/vue/outline";
 import emitter from "@/libraries/emitt.js";
 export default {
   data() {
@@ -171,7 +168,6 @@ export default {
     };
   },
   components: {
-    // ShoppingBagIcon,
     Footer,
     Loading,
   },
@@ -185,7 +181,6 @@ export default {
         .then((res) => {
           this.isLoading = false;
           this.cartData = res.data.data;
-          // console.log(this.cartData);
         });
     },
     minusCart(item) {
@@ -267,8 +262,6 @@ export default {
 .cart-title {
   margin:3rem 0 1rem;
   width:100%;
-  // display: flex;
-  // justify-content: center;
   ul{
     width:100%;
     display: flex;
@@ -283,7 +276,6 @@ export default {
     align-items: center;
     flex-direction: column;
     span{
-      // background-color:#8C8C8C;
       background-color:#c8c8c8;
       color:#fff;
       border-radius: 50%;
@@ -297,7 +289,6 @@ export default {
     }
     p{
       letter-spacing: 3px;
-      // font-weight: 700;
       color:#c8c8c8;
     }
     .bar{

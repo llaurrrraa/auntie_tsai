@@ -21,7 +21,7 @@
     </div>
     <div class="row mt-3">
       <div class="col-lg-8 cart-left my-5">
-        <Form ref="form" class="row" v-slot="{ errors }" >
+        <Form ref="form" class="row form" v-slot="{ errors }">
           <div class="col mb-3">
             <label for="name" class="form-label">｜ 訂購人姓名</label>
             <Field
@@ -30,59 +30,58 @@
               type="text"
               class="form-control"
               :class="{ 'is-invalid': errors['訂購人姓名'] }"
-              placeholder="請輸入 姓名"
               rules="required"
               v-model="form.user.name"
             ></Field>
-            <ErrorMessage name="訂購人姓名" class="invalid-feedback"></ErrorMessage>
+            <ErrorMessage
+              name="訂購人姓名"
+              class="invalid-feedback"
+            ></ErrorMessage>
           </div>
           <div class="col">
-            <label for="tel" class="form-label"
-              >｜ 訂購人手機</label
-            >
+            <label for="tel" class="form-label">｜ 訂購人手機</label>
             <Field
               id="tel"
               name="訂購人電話"
               type="tel"
               class="form-control"
               :class="{ 'is-invalid': errors['訂購人電話'] }"
-              placeholder="請輸入 電話"
               rules="required|min:8|max:10"
               v-model="form.user.tel"
             ></Field>
-            <ErrorMessage name="訂購人電話" class="invalid-feedback"></ErrorMessage>
+            <ErrorMessage
+              name="訂購人電話"
+              class="invalid-feedback"
+            ></ErrorMessage>
           </div>
           <div class="col-12 mb-3">
-            <label for="email" class="form-label"
-              >｜ email</label
-            >
+            <label for="email" class="form-label">｜ email</label>
             <Field
               id="email"
               name="email"
               type="email"
               class="form-control"
               :class="{ 'is-invalid': errors['email'] }"
-              placeholder="請輸入 Email"
               rules="required|email"
               v-model="form.user.email"
             ></Field>
             <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
           </div>
           <div class="col-12 mb-3">
-            <label for="address" class="form-label"
-              >｜ 收貨地址</label
-            >
+            <label for="address" class="form-label">｜ 收貨地址</label>
             <Field
               id="address"
               name="收貨地址"
               type="address"
               class="form-control"
               :class="{ 'is-invalid': errors['收貨地址'] }"
-              placeholder="請輸入 地址"
               rules="required"
               v-model="form.user.address"
             ></Field>
-            <ErrorMessage name="收貨地址" class="invalid-feedback"></ErrorMessage>
+            <ErrorMessage
+              name="收貨地址"
+              class="invalid-feedback"
+            ></ErrorMessage>
           </div>
           <div class="mb-3">
             <label for="textareaFormControlInput" class="form-label"
@@ -103,25 +102,18 @@
         <div class="title mb-5"></div>
         <div class="card mx-auto" style="width: 20rem">
           <div class="card-body">
+            <h6>訂單資訊</h6>
+            <hr />
             <div class="total_price">
               <p class="card-text">總金額</p>
-              <p></p>
+              <p>$ {{ cartData.final_total }}</p>
             </div>
-            <div class="input-group mb-3">
-              <input
-                type="text"
-                class="form-control"
-                aria-label="Recipient's username"
-                aria-describedby="button-addon2"
-              />
-              <button
-                class="btn btn-outline-secondary"
-                type="button"
-                id="button-addon2"
-              >
-                優惠碼
-              </button>
-            </div>
+            <select class="form-select mb-3" aria-label="payMethods">
+              <option selected Disabled>請選擇付款方式</option>
+              <option value="1">信用卡付款</option>
+              <option value="2">轉帳方式</option>
+              <option value="3">LinePay</option>
+            </select>
             <button class="btn d-block w-100 btn-dark" @click="addOrder">
               送出訂單
             </button>
@@ -131,13 +123,20 @@
     </div>
   </div>
   <Footer />
+  <Loading :is-loading="isLoading" :is-loading-item="isLoadingItem" />
 </template>
 
 <script>
 import Footer from "@/components/Footer.vue";
+import Loading from "@/components/Loading.vue";
+import swal from "sweetalert2";
+import emitter from "@/libraries/emitt.js";
+
 export default {
   data() {
     return {
+      isLoading: false,
+      isLoadingItem: "",
       form: {
         user: {
           name: "",
@@ -147,24 +146,65 @@ export default {
         },
         message: "",
       },
+      cartData: {
+        carts: "",
+      },
     };
   },
   components: {
     Footer,
+    Loading,
   },
   methods: {
+    getCart() {
+      this.isLoading = true;
+      this.$http
+        .get(
+          `${process.env.VUE_APP_URL}/v2/api/${process.env.VUE_APP_API_PATH}/cart`
+        )
+        .then((res) => {
+          this.isLoading = false;
+          this.cartData = res.data.data;
+        });
+    },
     addOrder() {
       const api = `${process.env.VUE_APP_URL}v2/api/${process.env.VUE_APP_API_PATH}/order`;
       const order = this.form;
-      this.$http
-        .post(api, { data: order })
-        .then((res) => {
-          console.log(res);
+      const swalWithBootstrapButtons = swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-dark",
+          cancelButton: "btn btn-outline-danger",
+        },
+        buttonsStyling: false,
+      });
+      swalWithBootstrapButtons
+        .fire({
+          title: "確定要送出訂單嗎?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "確定",
+          cancelButtonText: "取消",
+          reverseButtons: true,
         })
-        .catch((err) => {
-          console.dir(err);
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$http.post(api, { data: order }).then((res) => {
+              console.log(res);
+            });
+            swalWithBootstrapButtons.fire(
+              "成功送出訂單!",
+              "請耐心等待物流配送",
+              "success"
+            );
+            this.$router.push("/checkout");
+          }
         });
+      
+      emitter.emit("getCart");
     },
+  },
+  mounted() {
+    this.getCart();
   },
 };
 </script>
@@ -173,8 +213,6 @@ export default {
 .cart-title {
   margin: 3rem 0 1rem;
   width: 100%;
-  // display: flex;
-  // justify-content: center;
   ul {
     width: 100%;
     display: flex;
@@ -189,7 +227,6 @@ export default {
     align-items: center;
     flex-direction: column;
     span {
-      // background-color:#8C8C8C;
       background-color: #c8c8c8;
       color: #fff;
       border-radius: 50%;
@@ -203,7 +240,6 @@ export default {
     }
     p {
       letter-spacing: 3px;
-      // font-weight: 700;
       color: #c8c8c8;
     }
     .bar {
@@ -227,8 +263,7 @@ export default {
     color: #9c9c9c;
   }
 }
-.order {
-  min-height: calc(100vh - 216px);
+.cart-right {
   .title {
     display: flex;
     justify-content: center;
@@ -238,8 +273,21 @@ export default {
       color: #9c9c9c;
     }
   }
+  .total_price {
+    display: flex;
+    justify-content: space-between;
+    p {
+      display: inline-block;
+    }
+  }
+}
+.order {
+  min-height: calc(100vh - 216px);
   .form {
-    margin-bottom: 2rem;
+    label {
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
   }
   a {
     position: relative;
