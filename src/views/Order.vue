@@ -20,53 +20,74 @@
       </ul>
     </div>
     <div class="row mt-3">
-      <div class="col-lg-8 cart-left">
-        <div class="title mb-5"></div>
-        <div class="form row">
+      <div class="col-lg-8 cart-left my-5">
+        <Form ref="form" class="row" v-slot="{ errors }" >
           <div class="col mb-3">
-            <label for="NameFormControlInput" class="ms-3 form-label"
-              >｜ 訂購人姓名</label
-            >
-            <input
+            <label for="name" class="form-label">｜ 訂購人姓名</label>
+            <Field
+              id="name"
+              name="訂購人姓名"
               type="text"
               class="form-control"
-              id="NameFormControlInput"
-              placeholder=""
+              :class="{ 'is-invalid': errors['訂購人姓名'] }"
+              placeholder="請輸入 姓名"
+              rules="required"
               v-model="form.user.name"
-            />
+            ></Field>
+            <ErrorMessage name="訂購人姓名" class="invalid-feedback"></ErrorMessage>
           </div>
           <div class="col">
-            <label for="PhoneFormControlInput" class="ms-3 form-label">｜ 訂購人手機</label>
-            <input
-              type="text"
+            <label for="tel" class="form-label"
+              >｜ 訂購人手機</label
+            >
+            <Field
+              id="tel"
+              name="訂購人電話"
+              type="tel"
               class="form-control"
-              id="PhoneFormControlInput"
-              placeholder=""
+              :class="{ 'is-invalid': errors['訂購人電話'] }"
+              placeholder="請輸入 電話"
+              rules="required|min:8|max:10"
               v-model="form.user.tel"
-            />
+            ></Field>
+            <ErrorMessage name="訂購人電話" class="invalid-feedback"></ErrorMessage>
           </div>
           <div class="col-12 mb-3">
-            <label for="emailFormControlInput" class="ms-3 form-label">｜ email</label>
-            <input
-              type="text"
+            <label for="email" class="form-label"
+              >｜ email</label
+            >
+            <Field
+              id="email"
+              name="email"
+              type="email"
               class="form-control"
-              id="emailFormControlInput"
-              placeholder=""
+              :class="{ 'is-invalid': errors['email'] }"
+              placeholder="請輸入 Email"
+              rules="required|email"
               v-model="form.user.email"
-            />
+            ></Field>
+            <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
           </div>
           <div class="col-12 mb-3">
-            <label for="addressFormControlInput" class="ms-3 form-label">｜ 地址</label>
-            <input
-              type="text"
+            <label for="address" class="form-label"
+              >｜ 收貨地址</label
+            >
+            <Field
+              id="address"
+              name="收貨地址"
+              type="address"
               class="form-control"
-              id="addressFormControlInput"
-              placeholder=""
+              :class="{ 'is-invalid': errors['收貨地址'] }"
+              placeholder="請輸入 地址"
+              rules="required"
               v-model="form.user.address"
-            />
+            ></Field>
+            <ErrorMessage name="收貨地址" class="invalid-feedback"></ErrorMessage>
           </div>
           <div class="mb-3">
-            <label for="textareaFormControlInput" class="ms-3 form-label">｜ 想對阿姨說 ..</label>
+            <label for="textareaFormControlInput" class="form-label"
+              >｜ 想對阿姨說 ..</label
+            >
             <textarea
               class="form-control"
               placeholder="備 註"
@@ -75,7 +96,7 @@
               v-model="form.message"
             ></textarea>
           </div>
-        </div>
+        </Form>
         <a href="#/cart">〈&emsp;返回購物車</a>
       </div>
       <div class="col-lg-4 cart-right">
