@@ -42,9 +42,9 @@
                 >關於我們</router-link
               >
             </div>
-            <div class="p-2 bd-highlight nav-item ms-3">
+            <!-- <div class="p-2 bd-highlight nav-item ms-3">
               <HeartIcon class="heart-icon pb-1" />
-            </div>
+            </div> -->
             <div class="p-2 bd-highlight nav-item ms-3 position-relative">
               <a
                 class="cart-link"
@@ -169,7 +169,7 @@
 
 <script>
 import { ShoppingBagIcon } from "@heroicons/vue/outline";
-import { HeartIcon } from "@heroicons/vue/solid";
+// import { HeartIcon } from "@heroicons/vue/solid";
 import emitter from "@/libraries/emitt.js";
 
 export default {
@@ -182,7 +182,7 @@ export default {
     };
   },
   components: {
-    HeartIcon,
+    // HeartIcon,
     ShoppingBagIcon,
   },
   mounted() {

@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="/">
+      <a class="navbar-brand" href="#/home">
         <img
           src="../assets/images/icons/auntieTsai02-icon.png"
           height="40"
