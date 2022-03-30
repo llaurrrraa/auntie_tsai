@@ -31,16 +31,16 @@
               >產品訂單</router-link
             >
           </div>
-          <div class="p-2 bd-highlight nav-item ms-3">
+          <!-- <div class="p-2 bd-highlight nav-item ms-3">
             <router-link to="/admin/coupons" class="router-link"
               >優惠卷</router-link
             >
-          </div>
-          <div class="p-2 bd-highlight nav-item ms-3">
+          </div> -->
+          <!-- <div class="p-2 bd-highlight nav-item ms-3">
             <router-link to="/admin/posts" class="router-link"
               >貼文頁面</router-link
             >
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="navbar-text me-5">
