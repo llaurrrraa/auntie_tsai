@@ -93,6 +93,7 @@ import Loading from "@/components/Loading.vue";
 import ThumbsGallery from "@/components/ThumbsGallery.vue";
 import CategoryList from "@/components/CategoryList.vue";
 import Footer from "@/components/Footer.vue";
+import emitter from "@/libraries/emitt.js";
 
 export default {
   data() {
@@ -140,13 +141,16 @@ export default {
       this.qty = count;
     },
     addToCart(id) {
+      this.isLoading = true ;
       const data = {
         product_id: id,
         qty: this.qty,
       };
       const api = `${process.env.VUE_APP_URL}v2/api/${process.env.VUE_APP_API_PATH}/cart`;
       this.$http.post(api, { data }).then(() => {
-        alert("已加入購物車！");
+        this.isLoading = false;
+        emitter.emit("getCart");
+        this.$swal("成功加到購物車 !", "詳情請至購物車查看", "success");
       });
     },
   },

@@ -19,23 +19,53 @@
         </li>
       </ul>
     </div>
-    <div class="row mt-5">
-      <table class="table">
-        <thead>
-          <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item,index) in orderData" :key="index">
-            <td>{{item.title}}</td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="product-form mt-5 row">
+      <p class="order-title">訂 單 編 號 ： {{ orderData.id }}</p>
+      <div class="col-lg-6">
+        <table class="table align-middle table-borderless">
+          <thead>
+            <tr>
+              <th></th>
+              <th>品名</th>
+              <th>數量</th>
+              <th>總價</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in orderData.products" :key="index">
+              <td><img :src="item.product.imageUrl" alt="" /></td>
+              <td class="product-title">{{ item.product.title }}</td>
+              <td>{{ item.qty }} / {{ item.product.unit }}</td>
+              <td>$ {{ item.total }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-lg-4">
+        <ul>
+          <li>
+            <p class="order-title">訂 單 時 間 ： {{ orderTime }}</p>
+          </li>
+          <li>
+            <p class="order-title">付 款 資 訊 ： 
+              <span v-if="orderData.is_paid === false">未付款</span>
+              <span v-else>已付款</span>
+            </p>
+          </li>
+          <li>
+            <p class="order-title">訂 單 總 額 ： $ {{orderData.total}}</p>
+          </li>
+          <li>
+            <p class="order-title">聯 絡 信 箱 ： {{orderData.user}}</p>
+          </li>
+          <li>
+            <p class="order-title">顧 客 資 訊 ： {{}}</p>
+          </li>
+          <li>
+            <p class="order-title">運 送 地 址 ： {{orderData.user.address}}</p>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
   <Footer />
@@ -46,9 +76,10 @@ export default {
   data() {
     return {
       active: true,
-      orderData:{
-        carts:"",
-      }
+      orderData: {
+        carts: "",
+      },
+      orderTime: "",
     };
   },
   components: {
@@ -63,12 +94,36 @@ export default {
         )
         .then((res) => {
           this.isLoading = false;
-          this.orderData = res.data.orders;
+          this.orderData = res.data.orders[0];
           console.log(this.orderData);
+
+          const time = this.orderData.create_at;
+          console.log(time);
+          const current = new Date(parseInt(this.orderData.create_at * 1000));
+
+          const formatDate = (date) => {
+            const current_time =
+              date.getFullYear() +
+              "-" +
+              (date.getMonth() + 1) +
+              "-" +
+              date.getDate() +
+              " " +
+              date.getHours() +
+              ":" +
+              date.getMinutes() +
+              ":" +
+              date.getSeconds();
+            return current_time;
+          };
+          this.orderTime = formatDate(current);
+          // console.log(formatDate(current));
+          // const created = date.toUTCString();
+          // console.log(created);
         });
     },
   },
-  mounted(){
+  mounted() {
     this.getOrders();
   },
 };
@@ -77,6 +132,7 @@ export default {
 .checkout {
   min-height: calc(100vh - 216px);
   margin-bottom: 5rem;
+  letter-spacing: 1px;
 }
 .checkout-title {
   margin: 3rem 0 1rem;
@@ -128,6 +184,32 @@ export default {
     margin-bottom: 0;
     letter-spacing: 1.5px;
     color: #9c9c9c;
+  }
+}
+.product-form {
+  .order-title {
+    color: #8c8c8c;
+  }
+  table {
+    border: 1px solid #e9e9e9;
+    thead {
+      border: 1px solid #e9e9e9;
+      th {
+        color: #b8b8b8;
+        font-weight: 300;
+        letter-spacing: 2px;
+        font-size: 13px;
+      }
+    }
+    tbody {
+      // background-color: #e9e9e9;
+      img {
+        width: 50px;
+      }
+      .product-title {
+        font-weight: 700;
+      }
+    }
   }
 }
 </style>
