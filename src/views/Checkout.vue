@@ -136,9 +136,6 @@ export default {
             return current_time;
           };
           this.orderTime = formatDate(current);
-          // console.log(formatDate(current));
-          // const created = date.toUTCString();
-          // console.log(created);
         });
     },
   },
@@ -226,7 +223,6 @@ export default {
         }
       }
       tbody {
-        // background-color: #e9e9e9;
         img {
           width: 50px;
         }
@@ -249,7 +245,5 @@ export default {
       }
     }
   }
-}
-@media (max-width: 768.98px) {
 }
 </style>

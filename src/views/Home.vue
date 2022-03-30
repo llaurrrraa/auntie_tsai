@@ -153,21 +153,12 @@ export default {
         this.isLoading = false;
         emitter.emit("getCart");
         this.$swal("成功加到購物車 !", "詳情請至購物車查看", "success");
-        // alert("已加入購物車！");
       });
     },
   },
   mounted() {
     this.getProducts();
   },
-  // metaInfo: {
-  //     title: 'My Example App',
-  //     titleTemplate: '%s - Yay!',
-  //     htmlAttrs: {
-  //       lang: 'en',
-  //       amp: true
-  //     }
-  //   }
 };
 </script>
 <style lang="scss">

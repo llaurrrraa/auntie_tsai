@@ -12,7 +12,7 @@
             <th>會員帳號</th>
             <th>金額</th>
             <th>付款狀態</th>
-            <th>編輯 / 刪除</th>
+            <th>刪除</th>
           </tr>
         </thead>
         <tbody>
@@ -20,18 +20,17 @@
             <td class="text-secondary" style="letter-spacing: 0">
               {{ item.id }}
             </td>
-            <td></td>
+            <td>
+              {{ date(item.create_at) }}
+            </td>
             <td>{{ item.user.email }}</td>
             <td>{{ item.total }}</td>
             <td>
-              <span v-if="is_paid">已付款</span>
+              <span v-if="item.is_paid">已付款</span>
               <span v-else>未付款</span>
             </td>
             <td>
               <div class="btn-group">
-                <button type="button" class="btn btn-outline-dark btn-sm">
-                  編輯
-                </button>
                 <button type="button" class="btn btn-outline-danger btn-sm">
                   刪除
                 </button>
@@ -41,20 +40,49 @@
         </tbody>
       </table>
     </div>
+    <Pagination :pages="pagination" @update-page="getOrders" />
   </div>
 </template>
 <script>
+// import DelModal from "@/components/DelModal.vue";
+import Pagination from "../components/Pagination.vue";
 export default {
   data() {
     return {
       orders: [],
+      pagination: {},
+      currentPage: 1,
     };
   },
+  components: {
+    Pagination,
+  },
   methods: {
-    getOrders() {
-      const api = `${process.env.VUE_APP_URL}v2/api/${process.env.VUE_APP_API_PATH}/admin/orders`;
+    date(time) {
+      const date = new Date(parseInt(time * 1000));
+      const formatDate = (date) => {
+        const current_time =
+          date.getFullYear() +
+          "-" +
+          (date.getMonth() + 1) +
+          "-" +
+          date.getDate() +
+          " " +
+          date.getHours() +
+          ":" +
+          date.getMinutes() +
+          ":" +
+          date.getSeconds();
+        return current_time;
+      };
+      return formatDate(date);
+    },
+    getOrders(page = 1) {
+      this.currentPage = page;
+      const api = `${process.env.VUE_APP_URL}v2/api/${process.env.VUE_APP_API_PATH}/admin/orders?page=${page}`;
       this.$http.get(api).then((res) => {
         this.orders = res.data.orders;
+        this.pagination = res.data.pagination;
       });
     },
   },
