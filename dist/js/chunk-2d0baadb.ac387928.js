@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0baadb"],{"37de":function(n,e,c){"use strict";c.r(e);var t=c("7a23");function o(n,e){return Object(t["openBlock"])(),Object(t["createElementBlock"])("h4",null,"後台優惠卷")}var a=c("6b0d"),r=c.n(a);const d={},u=r()(d,[["render",o]]);e["default"]=u}}]);
-//# sourceMappingURL=chunk-2d0baadb.ac387928.js.map

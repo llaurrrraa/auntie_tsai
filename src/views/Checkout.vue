@@ -19,10 +19,10 @@
         </li>
       </ul>
     </div>
-    <div class="product-form mt-5 row">
+    <div class="product-form mt-5 row col-lg-7">
       <p class="order-title">訂 單 編 號 ： {{ orderData.id }}</p>
-      <div class="col-lg-6">
-        <table class="table align-middle table-borderless">
+      <div class="order-table">
+        <table class="table align-middle table-borderless mb-5">
           <thead>
             <tr>
               <th></th>
@@ -34,37 +34,55 @@
           <tbody>
             <tr v-for="(item, index) in orderData.products" :key="index">
               <td><img :src="item.product.imageUrl" alt="" /></td>
-              <td class="product-title">{{ item.product.title }}</td>
+              <td class="product-title">
+                <span>{{ item.product.title }}</span>
+              </td>
               <td>{{ item.qty }} / {{ item.product.unit }}</td>
               <td>$ {{ item.total }}</td>
             </tr>
           </tbody>
         </table>
-      </div>
-      <div class="col-lg-4">
-        <ul>
-          <li>
-            <p class="order-title">訂 單 時 間 ： {{ orderTime }}</p>
-          </li>
-          <li>
-            <p class="order-title">付 款 資 訊 ： 
-              <span v-if="orderData.is_paid === false">未付款</span>
-              <span v-else>已付款</span>
-            </p>
-          </li>
-          <li>
-            <p class="order-title">訂 單 總 額 ： $ {{orderData.total}}</p>
-          </li>
-          <li>
-            <p class="order-title">聯 絡 信 箱 ： {{orderData.user}}</p>
-          </li>
-          <li>
-            <p class="order-title">顧 客 資 訊 ： {{}}</p>
-          </li>
-          <li>
-            <p class="order-title">運 送 地 址 ： {{orderData.user.address}}</p>
-          </li>
-        </ul>
+        <table
+          class="table align-middle table-borderless mb-5"
+          style="font-size: 13px"
+        >
+          <thead>
+            <tr>
+              <th>訂單時間</th>
+              <th>付款資訊</th>
+              <th>訂單總額</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ orderTime }}</td>
+              <td>
+                <span v-if="orderData.is_paid === false">未付款</span>
+                <span v-else>已付款</span>
+              </td>
+              <td>$ {{ orderData.total }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="table align-middle table-borderless"
+          style="font-size: 13px"
+        >
+          <thead>
+            <tr>
+              <th>顧客信箱</th>
+              <th>訂購人姓名</th>
+              <th>運送地址</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ orderData.user.email }}</td>
+              <td>{{ orderData.user.name }}</td>
+              <td>{{ orderData.user.address }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -77,7 +95,8 @@ export default {
     return {
       active: true,
       orderData: {
-        carts: "",
+        products: {},
+        user: {},
       },
       orderTime: "",
     };
@@ -132,7 +151,8 @@ export default {
 .checkout {
   min-height: calc(100vh - 216px);
   margin-bottom: 5rem;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+  align-items: center;
 }
 .checkout-title {
   margin: 3rem 0 1rem;
@@ -187,29 +207,49 @@ export default {
   }
 }
 .product-form {
+  p {
+    font-size: 13px;
+  }
   .order-title {
     color: #8c8c8c;
   }
-  table {
-    border: 1px solid #e9e9e9;
-    thead {
+  .order-table {
+    table {
       border: 1px solid #e9e9e9;
-      th {
-        color: #b8b8b8;
-        font-weight: 300;
-        letter-spacing: 2px;
-        font-size: 13px;
+      thead {
+        border: 1px solid #e9e9e9;
+        th {
+          color: #b8b8b8;
+          font-weight: 300;
+          letter-spacing: 2px;
+          font-size: 13px;
+        }
       }
-    }
-    tbody {
-      // background-color: #e9e9e9;
-      img {
-        width: 50px;
-      }
-      .product-title {
-        font-weight: 700;
+      tbody {
+        // background-color: #e9e9e9;
+        img {
+          width: 50px;
+        }
+        .product-title {
+          span {
+            font-weight: 700;
+            background-color: #65ffbf;
+            color: #0b58ca;
+            padding:5px;
+          }
+        }
       }
     }
   }
+  .order-customer {
+    ul {
+      list-style: none;
+      li p {
+        color: #000;
+      }
+    }
+  }
+}
+@media (max-width: 768.98px) {
 }
 </style>
