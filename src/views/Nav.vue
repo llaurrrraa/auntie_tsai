@@ -117,7 +117,7 @@
                   class="btn btn-outline-secondary"
                   type="button"
                   id="button-minus1"
-                  @click="minusCart()"
+                  @click="minusCart(item)"
                 >
                   －
                 </button>
@@ -135,14 +135,20 @@
                   class="btn btn-outline-secondary"
                   type="button"
                   id="button-add1"
-                  @click="addCart()"
+                  @click="addCart(item)"
                 >
                   ＋
                 </button>
               </div>
             </td>
             <td>
-              <button type="btn" class="btn btn-outline-dark">X</button>
+              <button
+                type="btn"
+                class="btn btn-outline-dark"
+                @click="deleteCart(item.id)"
+              >
+                X
+              </button>
             </td>
           </tr>
         </tbody>
@@ -201,6 +207,49 @@ export default {
         .then((res) => {
           this.cartData = res.data.data;
         });
+    },
+    minusCart(item) {
+      item.qty--;
+      this.isLoadingItem = item.id;
+      const data = {
+        product_id: item.id,
+        qty: item.qty,
+      };
+      this.$http
+        .put(
+          `${process.env.VUE_APP_URL}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${item.id}`,
+          { data }
+        )
+        .then(() => {
+          this.getCart();
+          this.isLoadingItem = "";
+        });
+    },
+    addCart(item) {
+      item.qty++;
+      this.isLoadingItem = item.id;
+      const data = {
+        product_id: item.id,
+        qty: item.qty,
+      };
+      this.$http
+        .put(
+          `${process.env.VUE_APP_URL}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${item.id}`,
+          { data }
+        )
+        .then(() => {
+          this.isLoadingItem = "";
+          this.getCart();
+        });
+    },
+    deleteCart(id) {
+      this.isLoading = true;
+      const api = `${process.env.VUE_APP_URL}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`;
+      this.$http.delete(api).then(() => {
+        this.isLoading = false;
+        this.getCart();
+        emitter.emit("getCart");
+      });
     },
     goToCart() {
       this.$router.push("/cart");

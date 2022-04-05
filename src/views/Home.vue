@@ -164,6 +164,8 @@ export default {
 <style lang="scss">
 @import "~sweetalert2/src/variables";
 @import "~sweetalert2/src/sweetalert2";
+
+
 html,
 body {
   width: 100%;

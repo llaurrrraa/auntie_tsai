@@ -114,7 +114,6 @@ export default {
         .then((res) => {
           this.isLoading = false;
           this.orderData = res.data.orders[0];
-          console.log(this.orderData);
 
           const time = this.orderData.create_at;
           console.log(time);
