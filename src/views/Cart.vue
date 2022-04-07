@@ -254,6 +254,8 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "src/assets/all.scss";
+
 .cart {
   min-height: calc(100vh - 216px);
   margin-bottom: 5rem;
@@ -298,18 +300,18 @@ export default {
     }
 
     .active{
-      background-color: #65ffbf;
+      background-color:$primaryColor;
     }
   }
   .sb-icon {
     width: 20px;
     margin-right: 0.5rem;
-    color: #9c9c9c;
+    color: $darkGray;
   }
   h6 {
     margin-bottom: 0;
     letter-spacing: 1.5px;
-    color: #9c9c9c;
+    color: $darkGray;
   }
 }
 
@@ -350,13 +352,13 @@ export default {
           max-width: 150px;
         }
         .text-end del {
-          color: #8c8c8c;
+          color: $darkGray;
         }
         .text-end .sale-price {
-          color: #0b58ca;
+          color: $secondaryColor;
         }
         .final-price span {
-          background-color: #65ffbf;
+          background-color: $primaryColor;
           padding: 0 0.5rem;
         }
       }
@@ -370,14 +372,14 @@ export default {
     h6 {
       margin-bottom: 0;
       letter-spacing: 1.5px;
-      color: #9c9c9c;
+      color: $darkGray;
     }
   }
   .card {
     h6 {
       text-align: center;
       letter-spacing: 1px;
-      color: #8c8c8c;
+      color: $darkGray;
     }
     .total_price {
       display: flex;
@@ -423,7 +425,7 @@ export default {
   top: 3px;
   position: absolute;
   animation: ldio-hpqk1yjwodj linear 1s infinite;
-  background: #17da9f;
+  background: $primaryColor;
   width: 6px;
   height: 12px;
   border-radius: 2.4px / 2.4px;
@@ -432,62 +434,62 @@ export default {
 .ldio-hpqk1yjwodj div:nth-child(1) {
   transform: rotate(0deg);
   animation-delay: -0.9166666666666666s;
-  background: #17da9f;
+  background: $primaryColor;
 }
 .ldio-hpqk1yjwodj div:nth-child(2) {
   transform: rotate(30deg);
   animation-delay: -0.8333333333333334s;
-  background: #17da9f;
+  background: $primaryColor;
 }
 .ldio-hpqk1yjwodj div:nth-child(3) {
   transform: rotate(60deg);
   animation-delay: -0.75s;
-  background: #17da9f;
+  background: $primaryColor;
 }
 .ldio-hpqk1yjwodj div:nth-child(4) {
   transform: rotate(90deg);
   animation-delay: -0.6666666666666666s;
-  background: #17da9f;
+  background: $primaryColor;
 }
 .ldio-hpqk1yjwodj div:nth-child(5) {
   transform: rotate(120deg);
   animation-delay: -0.5833333333333334s;
-  background: #17da9f;
+  background: $primaryColor;
 }
 .ldio-hpqk1yjwodj div:nth-child(6) {
   transform: rotate(150deg);
   animation-delay: -0.5s;
-  background: #17da9f;
+  background: $primaryColor;
 }
 .ldio-hpqk1yjwodj div:nth-child(7) {
   transform: rotate(180deg);
   animation-delay: -0.4166666666666667s;
-  background: #17da9f;
+  background: $primaryColor;
 }
 .ldio-hpqk1yjwodj div:nth-child(8) {
   transform: rotate(210deg);
   animation-delay: -0.3333333333333333s;
-  background: #17da9f;
+  background: $primaryColor;
 }
 .ldio-hpqk1yjwodj div:nth-child(9) {
   transform: rotate(240deg);
   animation-delay: -0.25s;
-  background: #17da9f;
+  background: $primaryColor;
 }
 .ldio-hpqk1yjwodj div:nth-child(10) {
   transform: rotate(270deg);
   animation-delay: -0.16666666666666666s;
-  background: #17da9f;
+  background: $primaryColor;
 }
 .ldio-hpqk1yjwodj div:nth-child(11) {
   transform: rotate(300deg);
   animation-delay: -0.08333333333333333s;
-  background: #17da9f;
+  background: $primaryColor;
 }
 .ldio-hpqk1yjwodj div:nth-child(12) {
   transform: rotate(330deg);
   animation-delay: 0s;
-  background: #17da9f;
+  background: $primaryColor;
 }
 .loadingio-spinner-spinner-n3aayyd8xj {
   width: 51px;

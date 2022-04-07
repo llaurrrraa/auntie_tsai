@@ -81,6 +81,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "src/assets/all.scss";
+
 * {
   .container {
     .row {
@@ -89,7 +91,7 @@ export default {
         h6 {
           margin-left: 1rem;
           letter-spacing: 1.5px;
-          color: #9c9c9c;
+          color: $darkGray;
         }
         .cards {
           .card {
@@ -119,8 +121,8 @@ export default {
               .card-price {
                 display: inline;
                 float: right;
-                background-color: #65ffbf;
-                color: #0544f3;
+                background-color: $primaryColor;
+                color: $secondaryColor;
                 border-radius: 5px;
                 padding: 0 5px;
                 margin-bottom: 0;
@@ -133,7 +135,7 @@ export default {
             .card-text {
               font-size: 0.9rem;
               letter-spacing: 1px;
-              color: #8c8c8c;
+              color: $darkGray;
               font-weight: 300;
               margin-bottom: 0.5rem;
               del {
@@ -187,7 +189,7 @@ export default {
               }
             }
             .btn {
-              background-color: #0544f3;
+              background-color: $secondaryColor;
               border-radius: 50%;
               width: 40px;
               height: 40px;
@@ -196,7 +198,7 @@ export default {
               align-items: center;
               padding: 0;
               .shoppingbag-icon {
-                color: #65ffbf;
+                color: $primaryColor;
                 width: 23px;
               }
             }

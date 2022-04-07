@@ -72,6 +72,8 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "src/assets/all.scss";
+
 .cards {
   .card {
     border: none;
@@ -100,8 +102,8 @@ export default {
       .card-price {
         display: inline;
         float: right;
-        background-color: #65ffbf;
-        color: #0544f3;
+        background-color: $primaryColor;
+        color: $secondaryColor;
         border-radius: 5px;
         padding: 0 5px;
         margin-bottom: 0;
@@ -168,7 +170,7 @@ export default {
       }
     }
     .btn {
-      background-color: #0544f3;
+      background-color: $secondaryColor;
       border-radius: 50%;
       width: 40px;
       height: 40px;
@@ -177,7 +179,7 @@ export default {
       align-items: center;
       padding: 0;
       .shoppingbag-icon {
-        color: #65ffbf;
+        color: $primaryColor;
         width: 23px;
       }
     }

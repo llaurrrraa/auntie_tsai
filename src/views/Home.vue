@@ -6,8 +6,12 @@
         :slides-per-view="1"
         :space-between="50"
         :loop="true"
+        :autoplay="{
+          delay: 3500,
+          disableOnInteraction: false,
+        }"
         :pagination="{ clickable: true }"
-        navigation
+        :navigation="true"
       >
         <swiper-slide>
           <div class="cow-banner">
@@ -102,7 +106,7 @@ import Footer from "@/components/Footer.vue";
 import Loading from "@/components/Loading.vue";
 import emitter from "@/libraries/emitt.js";
 import { Swiper, SwiperSlide } from "swiper/vue/swiper-vue";
-import { Navigation, Pagination } from "swiper";
+import { Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/swiper.scss";
 import "swiper/modules/navigation/navigation.min.css";
 import "swiper/modules/pagination/pagination.min.css";
@@ -117,7 +121,7 @@ export default {
         "@/assets/images/fruits.png",
         "@/assets/images/rice.png",
       ],
-      modules: [Navigation, Pagination],
+      modules: [Autoplay,Navigation, Pagination],
       category: [],
       products: [],
     };
@@ -162,9 +166,9 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "src/assets/all.scss";
 @import "~sweetalert2/src/variables";
 @import "~sweetalert2/src/sweetalert2";
-
 
 html,
 body {
@@ -275,7 +279,7 @@ body {
   .sub-title {
     text-align: center;
     font-weight: 700;
-    color: #9c9c9c;
+    color: $darkGray;
     letter-spacing: 2.5px;
   }
 }
@@ -335,7 +339,7 @@ body {
       bottom: 0;
       left: 0;
       width: 100%;
-      background: #65ffbf;
+      background: $primaryColor;
       height: 4px;
     }
     &::before {
@@ -383,11 +387,11 @@ body {
   }
   .swal2-html-container {
     letter-spacing: 1px;
-    color: #8c8c8c;
+    color: $darkGray;
   }
   .swal2-actions {
     .swal2-confirm {
-      color: blue;
+      color: #fff;
     }
   }
 }
