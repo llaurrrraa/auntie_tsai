@@ -258,13 +258,15 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "src/assets/all.scss";
+
 * {
   font-family: "Rowdies", Noto Sans TC, cursive, sans-serif;
 }
 .modal-body {
   strong span {
-    background-color: #65ffbf;
-    color: #0544f3;
+    background-color: $primaryColor;
+    color: $secondaryColor;
     padding: 2px 5px;
   }
 }

@@ -110,6 +110,8 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "src/assets/all.scss";
+
 .ac {
   letter-spacing: 1px;
 }
@@ -122,7 +124,7 @@ export default {
     letter-spacing: 1px;
     font-weight: 700;
     margin: 0;
-    color: #0544f3;
+    color: $secondaryColor;
   }
   .ac-btn {
     margin: 0;
@@ -130,7 +132,7 @@ export default {
 }
 .ac-table {
   th {
-    color: #8c8c8c;
+    color: $darkGray;
     font-weight: 300;
   }
 }

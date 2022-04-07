@@ -144,6 +144,8 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "src/assets/all.scss";
+
 .checkout {
   min-height: calc(100vh - 216px);
   margin-bottom: 5rem;
@@ -188,18 +190,18 @@ export default {
       width: 100%;
     }
     .active {
-      background-color: #65ffbf;
+      background-color: $primaryColor;
     }
   }
   .sb-icon {
     width: 20px;
     margin-right: 0.5rem;
-    color: #9c9c9c;
+    color: $darkGray;
   }
   h6 {
     margin-bottom: 0;
     letter-spacing: 1.5px;
-    color: #9c9c9c;
+    color: $darkGray;
   }
 }
 .product-form {
@@ -207,7 +209,7 @@ export default {
     font-size: 13px;
   }
   .order-title {
-    color: #8c8c8c;
+    color: $darkGray;
   }
   .order-table {
     table {
@@ -228,8 +230,8 @@ export default {
         .product-title {
           span {
             font-weight: 700;
-            background-color: #65ffbf;
-            color: #0b58ca;
+            background-color: $primaryColor;
+            color: $secondaryColor;
             padding:5px;
           }
         }

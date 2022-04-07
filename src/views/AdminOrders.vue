@@ -91,6 +91,8 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "src/assets/all.scss";
+
 .ao {
   letter-spacing: 1px;
 }
@@ -103,7 +105,7 @@ export default {
     letter-spacing: 1px;
     font-weight: 700;
     margin: 0;
-    color: #0544f3;
+    color: $secondaryColor;
   }
   .ao-btn {
     margin: 0;
@@ -111,7 +113,7 @@ export default {
 }
 .ao-table {
   th {
-    color: #8c8c8c;
+    color: $darkGray;
     font-weight: 300;
   }
 }

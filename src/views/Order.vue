@@ -210,6 +210,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "src/assets/all.scss";
+
 .cart-title {
   margin: 3rem 0 1rem;
   width: 100%;
@@ -249,18 +251,18 @@ export default {
     }
 
     .active {
-      background-color: #65ffbf;
+      background-color: $primaryColor;
     }
   }
   .sb-icon {
     width: 20px;
     margin-right: 0.5rem;
-    color: #9c9c9c;
+    color: $darkGray;
   }
   h6 {
     margin-bottom: 0;
     letter-spacing: 1.5px;
-    color: #9c9c9c;
+    color: $darkGray;
   }
 }
 .cart-right {
@@ -270,7 +272,7 @@ export default {
     h6 {
       margin-bottom: 0;
       letter-spacing: 1.5px;
-      color: #9c9c9c;
+      color:$darkGray;
     }
   }
   .total_price {

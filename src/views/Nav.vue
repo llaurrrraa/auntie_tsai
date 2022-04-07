@@ -258,6 +258,8 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "src/assets/all.scss";
+
 .cart-link {
   cursor: pointer;
   color: #000;
@@ -270,7 +272,7 @@ export default {
     h5 {
       position: relative;
       border-radius: 5px;
-      color: #8c8c8c;
+      color: $darkGray;
       padding: 5px 15px;
       letter-spacing: 2px;
       &::before {
@@ -306,13 +308,13 @@ export default {
           }
         }
         .td-price {
-          color: #8c8c8c;
+          color: $darkGray;
         }
       }
     }
   }
   tfoot {
-    color: #8c8c8c;
+    color: $darkGray;
   }
 }
 .go-cart {
@@ -322,7 +324,7 @@ export default {
   background-color: rgba(101, 255, 191, 0.5);
 }
 .go-cart:hover {
-  background-color: #65ffbf;
+  background-color: $primaryColor;
 }
 .offcanvas-end {
   width: 600px;
@@ -333,7 +335,7 @@ export default {
   font-weight: 700;
 }
 .router-link:hover {
-  background-color: #65ffbf;
+  background-color: $primaryColor;
   border-radius: 5px;
 }
 .nav-link {
@@ -345,14 +347,14 @@ export default {
   width: 25px;
 }
 .heart-icon {
-  color: #9c9c9c;
+  color: $darkGray;
 }
 .heart-icon:hover {
   color: tomato;
   cursor: pointer;
 }
 .shopping-bag-bg:hover {
-  background-color: #65ffbf;
+  background-color: $primaryColor;
   border-radius: 5px;
 }
 @media (max-width: 768px) {
