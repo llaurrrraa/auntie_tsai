@@ -1,6 +1,6 @@
 <template>
-  <div class="container d-flex flex-column min-vh-100">
-    <div class="swiper my-5">
+  <div class="home-index container d-flex flex-column min-vh-100">
+    <div class="title-banner my-5">
       <swiper
         :modules="modules"
         :slides-per-view="1"
@@ -37,7 +37,7 @@
       </swiper>
     </div>
     <CategoryBtns class="my-3" :products="products" />
-    <div class="sale my-5">
+    <div class="sale-cards my-5">
       <h5 class="sub-title">你要的阿姨都有賣..</h5>
       <swiper
         class="swiper-product"
@@ -66,7 +66,8 @@
         </swiper-slide>
       </swiper>
     </div>
-    <div class="concept row-col-3">
+    <div class="vegeBox"></div>
+    <div class="concept-cards row-col-3">
       <div class="trade-card">
         <div class="card-body">
           <h2 class="card-title">公平交易</h2>
@@ -96,6 +97,7 @@
       </div>
     </div>
   </div>
+  <div class="email-card"></div>
   <Footer />
   <Loading :is-loading="isLoading" :is-loading-item="isLoadingItem" />
 </template>
@@ -121,7 +123,7 @@ export default {
         "@/assets/images/fruits.png",
         "@/assets/images/rice.png",
       ],
-      modules: [Autoplay,Navigation, Pagination],
+      modules: [Autoplay, Navigation, Pagination],
       category: [],
       products: [],
     };
@@ -165,282 +167,309 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" >
 @import "src/assets/all.scss";
 @import "~sweetalert2/src/variables";
 @import "~sweetalert2/src/sweetalert2";
+@include swiper();
 
 html,
 body {
   width: 100%;
 }
-.swiper {
-  max-width: 100%;
-}
-.swiper-product {
-  margin-top: 1rem;
-  height: 400px;
-}
-.swiper-button-prev,
-.swiper-button-next {
-  background-color: rgba(0, 0, 0, 0.3);
-  color: #fff;
-  border-radius: 25px;
-  padding: 2rem 2rem;
-}
-.cow-banner {
-  background-image: url(https://images.unsplash.com/photo-1500595046743-cd271d694d30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2674&q=80);
-  h1 {
-    font-size: 5.5rem;
-    color: #fff;
-    letter-spacing: 15px;
-    font-weight: 900;
-    text-shadow: 0 0 2px #000;
-    span {
-      color: #bdccd4;
-    }
-  }
-  h2 {
-    margin-top: 1.8rem;
-    color: #fff;
-    font-weight: 900;
-    letter-spacing: 8px;
-  }
-}
-.rice-banner {
-  background-image: url(https://images.unsplash.com/photo-1611501355758-0d8b8208e1ab?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80);
-  h1 {
-    font-size: 5.5rem;
-    color: #fff;
-    letter-spacing: 15px;
-    font-weight: 900;
-    text-shadow: 0 0 2px #000;
-  }
-  h2 {
-    color: #000;
-    font-weight: 900;
-    letter-spacing: 8px;
-    text-shadow: 0 0 2px #fff;
-    margin-top: 1.5rem;
-  }
-  h3 {
-    font-size: 2.5rem;
-    color: #000;
-    font-weight: 900;
-    letter-spacing: 15px;
-    text-shadow: 0 0 2px #fff;
-    margin-top: 1.5rem;
-    span {
-      background-color: rgba(255, 255, 255, 0.5);
-      color: #c15b07;
-      border: 2px solid #fff;
-      font-weight: 300;
-      font-size: 3rem;
-      padding: 0.5rem;
-      border-radius: 15px;
-    }
-  }
-}
-.ppl-banner {
-  background-image: url(https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80);
-  h1 {
-    text-align: center;
-    font-size: 5.5rem;
-    color: #fff;
-    padding: 0 5rem;
-    letter-spacing: 5rem;
-    font-weight: 900;
-    text-shadow: 0 0 2px #000;
-  }
-  h3 {
-    text-align: center;
-    font-size: 2.5rem;
-    letter-spacing: 15px;
-    color: #fff;
-    opacity: 0.7;
-    font-weight: 900;
-    text-shadow: 0 0 2px #000;
-  }
-}
-.cow-banner,
-.rice-banner,
-.ppl-banner {
-  height: 500px;
-  background-position: center center;
-  background-size: cover;
-  border-radius: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.sale {
-  margin-bottom: 5rem;
-  .sub-title {
-    text-align: center;
-    font-weight: 700;
-    color: $darkGray;
-    letter-spacing: 2.5px;
-  }
-}
-.concept {
-  margin: 3rem 0;
-  display: flex;
-  justify-content: space-around;
 
-  .card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: all 0.35s ease;
-    h2 {
-      color: #fff;
-      font-weight: 700;
-      letter-spacing: 2px;
-      padding: 0.8rem 2rem;
-      border-radius: 10px;
-    }
-  }
-  .trade-card {
-    background-image: url(../assets/images/trade.jpeg);
-  }
-  .nice-card {
-    background-image: url(../assets/images/kind-farm.jpeg);
-  }
-  .organic-card {
-    background-image: url(../assets/images/organic.jpeg);
-  }
-  .trade-card,
-  .nice-card,
-  .organic-card {
-    width: 25%;
-    position: relative;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    padding: 3rem 2rem;
-    border-radius: 15px;
-    color: #fff;
-    opacity: 0.5;
-    .hover-card-text {
-      font-weight: 700;
-      overflow: hidden;
-      max-height: 0;
-      transform: translateY(1em);
-      transition: all 0.55s ease;
-      letter-spacing: 1px;
-      padding: 5px 10px;
-    }
-
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: $primaryColor;
-      height: 4px;
-    }
-    &::before {
-      width: 0;
-      opacity: 0;
-      transition: opacity 0 ease, width 0 ease;
-      transition-delay: 5s;
-    }
-
-    &::after {
-      width: 100%;
-      background: white;
-      transition: width 0.5s ease;
-    }
-    &:hover {
-      box-shadow: 0 10px 20px 0 rgba(#202024, 0.12);
-      opacity: 1;
-      transition-duration: 5s;
-
-      &::before {
-        width: 100%;
-        opacity: 1;
-        transition: opacity 0.8s ease, width 0.8s ease;
-        transition-delay: 0;
+.home-index {
+  .title-banner {
+    .cow-banner {
+      background-image: url(https://images.unsplash.com/photo-1500595046743-cd271d694d30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2674&q=80);
+      h1 {
+        font-size: 5.5rem;
+        color: #fff;
+        letter-spacing: 15px;
+        font-weight: 900;
+        text-shadow: 0 0 2px #000;
+        span {
+          color: #bdccd4;
+        }
       }
-
-      &::after {
-        width: 0;
-        opacity: 0;
-        transition: width 0 ease;
+      h2 {
+        margin-top: 1.8rem;
+        color: #fff;
+        font-weight: 900;
+        letter-spacing: 8px;
       }
-
-      .hover-card-text {
-        max-height: 10em;
-        transform: none;
-        background-color: #fff;
+    }
+    .rice-banner {
+      background-image: url(https://images.unsplash.com/photo-1611501355758-0d8b8208e1ab?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80);
+      h1 {
+        font-size: 5.5rem;
+        color: #fff;
+        letter-spacing: 15px;
+        font-weight: 900;
+        text-shadow: 0 0 2px #000;
+      }
+      h2 {
         color: #000;
+        font-weight: 900;
+        letter-spacing: 8px;
+        text-shadow: 0 0 2px #fff;
+        margin-top: 1.5rem;
+      }
+      h3 {
+        font-size: 2.5rem;
+        color: #000;
+        font-weight: 900;
+        letter-spacing: 15px;
+        text-shadow: 0 0 2px #fff;
+        margin-top: 1.5rem;
+        span {
+          background-color: rgba(255, 255, 255, 0.5);
+          color: #c15b07;
+          border: 2px solid #fff;
+          font-weight: 300;
+          font-size: 3rem;
+          padding: 0.5rem;
+          border-radius: 15px;
+        }
       }
     }
-  }
-}
-.swal2-container {
-  .swal2-title {
-    letter-spacing: 2px;
-  }
-  .swal2-html-container {
-    letter-spacing: 1px;
-    color: $darkGray;
-  }
-  .swal2-actions {
-    .swal2-confirm {
-      color: #fff;
-    }
-  }
-}
-@media (max-width: 767.98px) {
-  .cow-banner {
-    h1 {
-      font-size: 2.25rem;
-    }
-    h2 {
-      font-size: 1rem;
-      padding: 0 1.5rem;
-    }
-  }
-  .rice-banner {
-    h1 {
-      font-size: 2.5rem;
-    }
-    h3 {
-      font-size: 1.25rem;
-      letter-spacing: 5px;
-      span {
-        font-size: 1.5rem;
-        border-radius: 8px;
+    .ppl-banner {
+      background-image: url(https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80);
+      h1 {
+        text-align: center;
+        font-size: 5.5rem;
+        color: #fff;
+        padding: 0 5rem;
+        letter-spacing: 5rem;
+        font-weight: 900;
+        text-shadow: 0 0 2px #000;
+      }
+      h3 {
+        text-align: center;
+        font-size: 2.5rem;
+        letter-spacing: 15px;
+        color: #fff;
+        opacity: 0.7;
+        font-weight: 900;
+        text-shadow: 0 0 2px #000;
       }
     }
-  }
-  .ppl-banner {
-    h1 {
-      font-size: 2.5rem;
-      padding: 0;
-      letter-spacing: 15px;
-      margin-bottom: 1rem;
+    .cow-banner,
+    .rice-banner,
+    .ppl-banner {
+      height: 500px;
+      background-position: center center;
+      background-size: cover;
+      border-radius: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
-    h3 {
-      padding: 0 1rem;
-      font-size: 1.5rem;
-      letter-spacing: 5px;
+  }
+  .sale-cards {
+    margin-bottom: 5rem;
+    .sub-title {
+      text-align: center;
+      font-weight: 700;
+      color: $darkGray;
+      letter-spacing: 2.5px;
+    }
+    .swiper-product {
+      position: relative;
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+      position: absolute;
+      top: 100px;
     }
   }
-  .concept {
-    margin-top: 0;
+  .concept-cards {
+    margin: 3rem 0;
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.35s ease;
+      h2 {
+        color: #fff;
+        font-weight: 700;
+        letter-spacing: 2px;
+        padding: 0.8rem 2rem;
+        border-radius: 10px;
+      }
+    }
+    .trade-card {
+      background-image: url(../assets/images/trade.jpeg);
+    }
+    .nice-card {
+      background-image: url(../assets/images/kind-farm.jpeg);
+    }
+    .organic-card {
+      background-image: url(../assets/images/organic.jpeg);
+    }
     .trade-card,
     .nice-card,
     .organic-card {
-      width: 100%;
-      margin-bottom: 0.5rem;
+      width: 25%;
+      position: relative;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      padding: 3rem 2rem;
+      border-radius: 15px;
+      color: #fff;
+      opacity: 0.5;
+      .hover-card-text {
+        font-weight: 700;
+        overflow: hidden;
+        max-height: 0;
+        transform: translateY(1em);
+        transition: all 0.55s ease;
+        letter-spacing: 1px;
+        padding: 5px 10px;
+      }
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: $primaryColor;
+        height: 4px;
+      }
+      &::before {
+        width: 0;
+        opacity: 0;
+        transition: opacity 0 ease, width 0 ease;
+        transition-delay: 5s;
+      }
+
+      &::after {
+        width: 100%;
+        background: white;
+        transition: width 0.5s ease;
+      }
+      &:hover {
+        box-shadow: 0 10px 20px 0 rgba(#202024, 0.12);
+        opacity: 1;
+        transition-duration: 5s;
+
+        &::before {
+          width: 100%;
+          opacity: 1;
+          transition: opacity 0.8s ease, width 0.8s ease;
+          transition-delay: 0;
+        }
+
+        &::after {
+          width: 0;
+          opacity: 0;
+          transition: width 0 ease;
+        }
+
+        .hover-card-text {
+          max-height: 10em;
+          transform: none;
+          background-color: #fff;
+          color: #000;
+        }
+      }
     }
   }
+  .swal2-container {
+    .swal2-title {
+      letter-spacing: 2px;
+    }
+    .swal2-html-container {
+      letter-spacing: 1px;
+      color: $darkGray;
+    }
+    .swal2-actions {
+      .swal2-confirm {
+        color: #fff;
+      }
+    }
+  }
+  @media (max-width: 767.98px) {
+    .title-banner {
+      .swiper-button-prev,
+      .swiper-button-next {
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 25px;
+        padding: 1.5rem 1rem;
+        color: #fff;
+      }
+      .cow-banner {
+        h1 {
+          font-size: 2.25rem;
+        }
+        h2 {
+          font-size: 1rem;
+          padding: 0 1.5rem;
+        }
+      }
+      .rice-banner {
+        h1 {
+          font-size: 2.5rem;
+        }
+        h3 {
+          font-size: 1.25rem;
+          letter-spacing: 5px;
+          span {
+            font-size: 1.5rem;
+            border-radius: 8px;
+          }
+        }
+      }
+      .ppl-banner {
+        h1 {
+          font-size: 2.5rem;
+          padding: 0;
+          letter-spacing: 15px;
+          margin-bottom: 1rem;
+        }
+        h3 {
+          padding: 0 1rem;
+          font-size: 1.5rem;
+          letter-spacing: 5px;
+        }
+      }
+    }
+    .sale-cards {
+      .swiper-product {
+        position: relative;
+      }
+      .swiper-button-prev,
+      .swiper-button-next {
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 25px;
+        padding: 1.5rem 1rem;
+        position: absolute;
+        top: 7rem;
+        color: #fff;
+      }
+    }
+    .concept-cards {
+      margin-top: 0;
+      display: flex;
+      flex-direction: column;
+      .trade-card,
+      .nice-card,
+      .organic-card {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+.email-card {
+  height: 300px;
+  background-color: #000;
 }
 </style>

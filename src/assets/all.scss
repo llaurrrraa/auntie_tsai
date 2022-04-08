@@ -1,5 +1,41 @@
 @import url("https://fonts.googleapis.com/css2?family=Rowdies&display=swap");
 
-$primaryColor:#65ffbf;
-$secondaryColor:#0544f3;
-$darkGray:#8c8c8c;
+$primaryColor: #65ffbf;
+$secondaryColor: #0544f3;
+$darkGray: #8c8c8c;
+
+@mixin arrow() {
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 0px;
+  border-right: 4px solid #dcdcdc;
+  border-bottom: 4px solid #dcdcdc;
+  transform: rotate(-45deg);
+}
+
+@mixin cart-container() {
+  background-color: #fff;
+  box-shadow: 1px 0px 15px 1px rgba(150, 150, 150, 0.2);
+  border-radius: 6px;
+}
+
+@mixin swiper() {
+  .swiper {
+    max-width: 100%;
+  }
+  @media (min-width: 768px) {
+    .swiper-product {
+      margin-top: 1rem;
+      height: 400px;
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+      background-color: rgba(0, 0, 0, 0.1);
+      color: #fff;
+      border-radius: 25px;
+      padding: 2rem 1.5rem;
+    }
+  }
+  
+}

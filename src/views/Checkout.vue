@@ -2,17 +2,17 @@
   <div class="checkout container d-flex flex-column">
     <div class="checkout-title">
       <ul>
-        <li class="col-4">
+        <li class="col-3">
           <span>1</span>
           <p>購物車</p>
           <div class="bar"></div>
         </li>
-        <li class="col-4">
+        <li class="col-3">
           <span>2</span>
           <p>填寫資料</p>
           <div class="bar"></div>
         </li>
-        <li class="col-4">
+        <li class="col-3">
           <span :style="{ backgroundColor: '#8c8c8c' }">3</span>
           <p :style="{ fontWeight: '700' }">訂單確認</p>
           <div class="bar" :class="{ active: true }"></div>
@@ -60,7 +60,7 @@
                 <span v-if="orderData.is_paid === false">未付款</span>
                 <span v-else>已付款</span>
               </td>
-              <td>$ {{ orderData.total }}</td>
+              <td>$ {{ Math.round(orderData.total) }}</td>
             </tr>
           </tbody>
         </table>
