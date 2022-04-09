@@ -2,24 +2,34 @@
   <div class="cart container d-flex flex-column">
     <div class="cart-title">
       <ul>
-        <li class="col-4">
-          <span :style="{backgroundColor:'#8c8c8c'}">1</span>
-          <p :style="{fontWeight:'700'}">購物車</p>
-          <div class="bar" :class="{'active':true}"></div>
+        <li class="col-3 actived">
+          <span :style="{ backgroundColor: '#65ffbf' }">1</span>
+          <p :style="{ fontWeight: '700' }">購物車</p>
+          <div class="bar" :class="{ active: true }"></div>
         </li>
-        <li class="col-4">
+        <li>
+          <div class="arrow">
+            <span class="arrow-line"></span>
+          </div>
+        </li>
+        <li class="col-3">
           <span>2</span>
           <p>填寫資料</p>
           <div class="bar"></div>
         </li>
-        <li class="col-4">
+        <li>
+          <div class="arrow">
+            <span class="arrow-line"></span>
+          </div>
+        </li>
+        <li class="col-3">
           <span>3</span>
           <p>訂單確認</p>
           <div class="bar"></div>
         </li>
       </ul>
     </div>
-    <div class="row mt-5">
+    <div class="cart-container row my-3 py-5">
       <div class="col-lg-8 cart-left">
         <div class="table-responsive">
           <table class="table align-center align-middle">
@@ -42,13 +52,6 @@
                   </td>
                   <td class="text-center">
                     <div class="input-group">
-                      <loading
-                        v-show="isLoadingItem === item.id"
-                        :is-full-page="false"
-                        ><div class="loadingio-spinner-spinner-n3aayyd8xj">
-                          <div class="ldio-hpqk1yjwodj"></div>
-                        </div>
-                      </loading>
                       <div class="input-group input-group-sm qtyBtn">
                         <button
                           class="btn btn-outline-secondary"
@@ -91,7 +94,7 @@
                     >
                   </td>
                   <td class="text-center final-price">
-                    <span>$ {{ item.final_total }}</span>
+                    <span>$ {{ Math.round(item.final_total) }}</span>
                   </td>
                   <td class="text-center">
                     <button
@@ -119,11 +122,11 @@
         <div class="title"></div>
         <div class="card mx-auto" style="width: 20rem">
           <div class="card-body">
-            <h6>訂單資訊</h6>
+            <h6>折扣碼</h6>
             <hr />
             <div class="total_price">
               <p class="card-text">總金額</p>
-              <p>$ {{ cartData.final_total }}</p>
+              <p>$ {{ Math.round(cartData.final_total) }}</p>
             </div>
             <div class="input-group mb-3">
               <input
@@ -131,11 +134,13 @@
                 class="form-control"
                 aria-label="Recipient's username"
                 aria-describedby="button-addon2"
+                v-model="coupon"
               />
               <button
-                class="btn btn-outline-secondary"
+                class="btn btn-outline-primary"
                 type="button"
                 id="button-addon2"
+                @click="useCoupons()"
               >
                 優惠碼
               </button>
@@ -147,6 +152,34 @@
         </div>
       </div>
     </div>
+    <div class="plus-cart">
+      <h6 class="plus-cart-title">加購產品</h6>
+      <swiper
+        class="swiper-product"
+        :spaceBetween="30"
+        :loop="true"
+        :modules="modules"
+        navigation
+        :breakpoints="{
+          '640': {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+          '768': {
+            slidesPerView: 2,
+            spaceBetween: 40,
+          },
+          '1024': {
+            slidesPerView: 5,
+            spaceBetween: 50,
+          },
+        }"
+      >
+        <swiper-slide v-for="item in addProducts" :key="item.id + 1">
+          <ProductCard :card-product="[item]" @add-to-cart="addToCart" />
+        </swiper-slide>
+      </swiper>
+    </div>
   </div>
   <Footer />
   <Loading :is-loading="isLoading" :is-loading-item="isLoadingItem" />
@@ -156,36 +189,72 @@
 import Footer from "@/components/Footer.vue";
 import Loading from "@/components/Loading.vue";
 import emitter from "@/libraries/emitt.js";
+import ProductCard from "@/components/ProductCard.vue";
+import { Swiper, SwiperSlide } from "swiper/vue/swiper-vue";
+import { Autoplay, Navigation } from "swiper";
+import "swiper/swiper.scss";
+import "swiper/modules/navigation/navigation.min.css";
+import "swiper/modules/pagination/pagination.min.css";
+
 export default {
   data() {
     return {
+      addProducts: [],
       isLoading: false,
       cartData: {
         carts: "",
       },
       isLoadingItem: "",
-      active:true,
+      active: true,
+      coupon: "",
+      modules: [Autoplay, Navigation],
     };
   },
   components: {
     Footer,
     Loading,
+    ProductCard,
+    Swiper,
+    SwiperSlide,
   },
   methods: {
+    getProducts() {
+      const api = `${process.env.VUE_APP_URL}v2/api/${process.env.VUE_APP_API_PATH}/products`;
+      this.$http.get(api).then((res) => {
+        this.addProducts = res.data.products.map((product) => {
+          product.qty = 1;
+          return product;
+        });
+      });
+    },
     getCart() {
       this.isLoading = true;
       this.$http
         .get(
-          `${process.env.VUE_APP_URL}/v2/api/${process.env.VUE_APP_API_PATH}/cart`
+          `${process.env.VUE_APP_URL}v2/api/${process.env.VUE_APP_API_PATH}/cart`
         )
         .then((res) => {
           this.isLoading = false;
           this.cartData = res.data.data;
         });
     },
+    addToCart(id, count = 1) {
+      const data = {
+        product_id: id,
+        qty: count,
+      };
+      this.isLoading = true;
+      const api = `${process.env.VUE_APP_URL}/v2/api/${process.env.VUE_APP_API_PATH}/cart`;
+      this.$http.post(api, { data }).then(() => {
+        this.isLoading = false;
+        emitter.emit("getCart");
+        this.$swal("成功加到購物車 !", "詳情請至購物車查看", "success");
+        this.getCart();
+      });
+    },
     minusCart(item) {
+      this.isLoading = true;
       item.qty--;
-      this.isLoadingItem = item.id;
       const data = {
         product_id: item.id,
         qty: item.qty,
@@ -197,12 +266,11 @@ export default {
         )
         .then(() => {
           this.getCart();
-          this.isLoadingItem = "";
         });
     },
     addCart(item) {
+      this.isLoading = true;
       item.qty++;
-      this.isLoadingItem = item.id;
       const data = {
         product_id: item.id,
         qty: item.qty,
@@ -213,7 +281,6 @@ export default {
           { data }
         )
         .then(() => {
-          this.isLoadingItem = "";
           this.getCart();
         });
     },
@@ -246,266 +313,230 @@ export default {
     moveToOrder() {
       this.$router.push("/order");
     },
+    useCoupons() {
+      const data = {
+        code: this.coupon,
+      };
+      const api = `${process.env.VUE_APP_URL}v2/api/${process.env.VUE_APP_API_PATH}/coupon`;
+      this.$http.post(api, { data }).then(() => {
+        this.getCart();
+
+        alert("成功套用優惠卷！");
+      });
+    },
   },
   mounted() {
+    this.getProducts();
     this.getCart();
-    console.log(this.cartData);
   },
 };
 </script>
 <style lang="scss">
 @import "src/assets/all.scss";
+@include swiper();
 
 .cart {
   min-height: calc(100vh - 216px);
-  margin-bottom: 5rem;
-}
- 
-.cart-title {
-  margin:3rem 0 1rem;
-  width:100%;
-  ul{
-    width:100%;
-    display: flex;
-    justify-content: space-evenly;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  li{
-    text-align: center;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    span{
-      background-color:#c8c8c8;
-      color:#fff;
-      border-radius: 50%;
+  .cart-title {
+    margin: 3rem 0 1rem;
+    width: 100%;
+    ul {
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    li {
+      padding-top: 15px;
+      text-align: center;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 5px;
-      width:28px;
-      height:28px;
-      margin-bottom: 0.5rem;
-    }
-    p{
-      letter-spacing: 3px;
-      color:#c8c8c8;
-    }
-    .bar{
-      background-color: #dbfff0;
-      height:5px;
-      width:100%;
-    }
+      flex-direction: column;
+      span {
+        background-color: #c8c8c8;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        width: 28px;
+        height: 28px;
+        margin-bottom: 0.5rem;
+      }
 
-    .active{
-      background-color:$primaryColor;
-    }
-  }
-  .sb-icon {
-    width: 20px;
-    margin-right: 0.5rem;
-    color: $darkGray;
-  }
-  h6 {
-    margin-bottom: 0;
-    letter-spacing: 1.5px;
-    color: $darkGray;
-  }
-}
+      .arrow-line {
+        @include arrow();
+      }
 
-.cart-left {
-  .table {
-    thead{
-      th{
-        font-weight: 300;
-        font-size: 14px;
-        color:#afafaf;
+      p {
+        letter-spacing: 3px;
+        color: #c8c8c8;
+      }
+      .bar {
+        background-color: #dbfff0;
+        height: 5px;
+        width: 100%;
+      }
+
+      .active {
+        background-color: $primaryColor;
       }
     }
-    tbody {
-      tr {
-        .empty-txt {
-          padding: 4rem 0;
-          letter-spacing: 1.5px;
-          color: rgba(156, 156, 156, 0.5);
-        }
-
-        .td-title {
-          font-weight: 700;
-        }
-        .text-center {
-          .input-group {
-            justify-content: center;
-            .qtyBtn {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
-          }
-          .unit {
-            margin-top: 0.5rem;
-          }
-        }
-        img {
-          max-width: 150px;
-        }
-        .text-end del {
-          color: $darkGray;
-        }
-        .text-end .sale-price {
-          color: $secondaryColor;
-        }
-        .final-price span {
-          background-color: $primaryColor;
-          padding: 0 0.5rem;
-        }
-      }
+    .actived {
+      background-color: #fff;
+      box-shadow: 1px 0px 15px 1px rgba(34, 255, 170, 0.2);
     }
-  }
-}
-.cart-right {
-  .title {
-    display: flex;
-    justify-content: center;
+    .sb-icon {
+      width: 20px;
+      margin-right: 0.5rem;
+      color: $darkGray;
+    }
     h6 {
       margin-bottom: 0;
       letter-spacing: 1.5px;
       color: $darkGray;
     }
   }
-  .card {
-    h6 {
-      text-align: center;
-      letter-spacing: 1px;
-      color: $darkGray;
-    }
-    .total_price {
-      display: flex;
-      justify-content: space-between;
-      p {
-        display: inline-block;
-      }
-    }
-  }
-}
-@media (max-width: 768px) {
-  .table-responsive {
-    // background-color: #f3f3f3;
-    margin: 3rem 0;
-    thead {
-      tr {
-        th {
-          font-size: 10px;
-          color: #a3a3a3;
+  .cart-container {
+    @include cart-container();
+    .cart-left {
+      .table {
+        thead {
+          th {
+            font-weight: 300;
+            font-size: 14px;
+            color: #afafaf;
+          }
+        }
+        tbody {
+          tr {
+            .empty-txt {
+              padding: 4rem 0;
+              letter-spacing: 1.5px;
+              color: rgba(156, 156, 156, 0.5);
+            }
+
+            .td-title {
+              font-weight: 700;
+            }
+            .text-center {
+              .input-group {
+                justify-content: center;
+                .qtyBtn {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                }
+              }
+              .unit {
+                margin-top: 0.5rem;
+              }
+            }
+            img {
+              max-width: 150px;
+            }
+            .text-end del {
+              color: $darkGray;
+            }
+            .text-end .sale-price {
+              color: $secondaryColor;
+            }
+            .final-price span {
+              background-color: $primaryColor;
+              padding: 0 0.5rem;
+            }
+          }
         }
       }
     }
-    tbody {
-      img {
-        max-width: 100px !important;
+    .cart-right {
+      .title {
+        display: flex;
+        justify-content: center;
+        h6 {
+          margin-bottom: 0;
+          letter-spacing: 1.5px;
+          color: $darkGray;
+        }
       }
-      .text-end del {
-        font-size: 12px;
+      .card {
+        box-shadow: 1px 0px 15px 1px rgba(34, 255, 170, 0.2);
+        background-color: $primaryColor;
+        border: 0px;
+        .form-control {
+          color: #0080ff;
+        }
+        h6 {
+          text-align: center;
+          letter-spacing: 2px;
+          font-weight: 700;
+        }
+        .total_price {
+          display: flex;
+          justify-content: space-between;
+          p {
+            display: inline-block;
+          }
+        }
       }
     }
   }
-}
-@keyframes ldio-hpqk1yjwodj {
-  0% {
-    opacity: 1;
+  .plus-cart {
+    .plus-cart-title {
+      margin-top: 2rem;
+      text-align: center;
+      color: #c2c2c2;
+      letter-spacing: 2px;
+    }
+
+    .swiper-product{
+      position: relative;
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+      position: absolute;
+      top:100px;
+    }
   }
-  100% {
-    opacity: 0;
+}
+
+@media (max-width: 768px) {
+  .cart {
+    .table-responsive {
+      margin: 3rem 0;
+      thead {
+        tr {
+          th {
+            font-size: 10px;
+            color: #a3a3a3;
+          }
+        }
+      }
+      tbody {
+        img {
+          max-width: 100px !important;
+        }
+        .text-end del {
+          font-size: 12px;
+        }
+      }
+    }
+    .swiper-product {
+      position: relative;
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 25px;
+      padding: 1.5rem 1rem;
+      position: absolute;
+      top: 7rem;
+      color: #fff;
+    }
   }
-}
-.ldio-hpqk1yjwodj div {
-  left: 48px;
-  top: 3px;
-  position: absolute;
-  animation: ldio-hpqk1yjwodj linear 1s infinite;
-  background: $primaryColor;
-  width: 6px;
-  height: 12px;
-  border-radius: 2.4px / 2.4px;
-  transform-origin: 3px 26px;
-}
-.ldio-hpqk1yjwodj div:nth-child(1) {
-  transform: rotate(0deg);
-  animation-delay: -0.9166666666666666s;
-  background: $primaryColor;
-}
-.ldio-hpqk1yjwodj div:nth-child(2) {
-  transform: rotate(30deg);
-  animation-delay: -0.8333333333333334s;
-  background: $primaryColor;
-}
-.ldio-hpqk1yjwodj div:nth-child(3) {
-  transform: rotate(60deg);
-  animation-delay: -0.75s;
-  background: $primaryColor;
-}
-.ldio-hpqk1yjwodj div:nth-child(4) {
-  transform: rotate(90deg);
-  animation-delay: -0.6666666666666666s;
-  background: $primaryColor;
-}
-.ldio-hpqk1yjwodj div:nth-child(5) {
-  transform: rotate(120deg);
-  animation-delay: -0.5833333333333334s;
-  background: $primaryColor;
-}
-.ldio-hpqk1yjwodj div:nth-child(6) {
-  transform: rotate(150deg);
-  animation-delay: -0.5s;
-  background: $primaryColor;
-}
-.ldio-hpqk1yjwodj div:nth-child(7) {
-  transform: rotate(180deg);
-  animation-delay: -0.4166666666666667s;
-  background: $primaryColor;
-}
-.ldio-hpqk1yjwodj div:nth-child(8) {
-  transform: rotate(210deg);
-  animation-delay: -0.3333333333333333s;
-  background: $primaryColor;
-}
-.ldio-hpqk1yjwodj div:nth-child(9) {
-  transform: rotate(240deg);
-  animation-delay: -0.25s;
-  background: $primaryColor;
-}
-.ldio-hpqk1yjwodj div:nth-child(10) {
-  transform: rotate(270deg);
-  animation-delay: -0.16666666666666666s;
-  background: $primaryColor;
-}
-.ldio-hpqk1yjwodj div:nth-child(11) {
-  transform: rotate(300deg);
-  animation-delay: -0.08333333333333333s;
-  background: $primaryColor;
-}
-.ldio-hpqk1yjwodj div:nth-child(12) {
-  transform: rotate(330deg);
-  animation-delay: 0s;
-  background: $primaryColor;
-}
-.loadingio-spinner-spinner-n3aayyd8xj {
-  width: 51px;
-  height: 51px;
-  display: inline-block;
-  overflow: hidden;
-}
-.ldio-hpqk1yjwodj {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform: translateZ(0) scale(0.51);
-  backface-visibility: hidden;
-  transform-origin: 0 0; /* see note above */
-}
-.ldio-hpqk1yjwodj div {
-  box-sizing: content-box;
 }
 </style>
