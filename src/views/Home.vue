@@ -97,7 +97,27 @@
       </div>
     </div>
   </div>
-  <div class="email-card"></div>
+  <div class="email-card">
+    <div class="white-cover">
+      <div class="email-group col-lg-4">
+          <label for="emailInput" class="form-label email-label"
+            >訂閱電子報獲得 8 折折扣碼！</label
+          >
+          <div class="input-group">
+            <input
+              name="entry.1457589512"
+              type="text"
+              class="form-control"
+              id="emailInput"
+              v-model="emailInput"
+            />
+            <button type="btn" class="btn subscribe-btn" @click="getEmail()">
+              訂閱 !
+            </button>
+          </div>
+      </div>
+    </div>
+  </div>
   <Footer />
   <Loading :is-loading="isLoading" :is-loading-item="isLoadingItem" />
 </template>
@@ -126,6 +146,7 @@ export default {
       modules: [Autoplay, Navigation, Pagination],
       category: [],
       products: [],
+      emailInput: "",
     };
   },
   components: {
@@ -159,6 +180,17 @@ export default {
         this.isLoading = false;
         emitter.emit("getCart");
         this.$swal("成功加到購物車 !", "詳情請至購物車查看", "success");
+      });
+    },
+    getEmail() {
+      
+      const data = {
+        email: this.emailInput,
+      };
+      const api = `https://script.google.com/macros/s/AKfycbx2utdPpPqs9OGhLqfZCjJsiOXQ16OU_tCBHvEctQ5t_cmlc-BMkTZ1holH2wVHaSb6VQ/exec`;
+      console.log(data);
+      this.$http.get(api, data).then((res) => {
+        console.log(res);
       });
     },
   },
@@ -285,6 +317,7 @@ body {
     }
   }
   .concept-cards {
+    height: 20rem;
     margin: 3rem 0;
     display: flex;
     justify-content: space-around;
@@ -347,7 +380,7 @@ body {
         width: 0;
         opacity: 0;
         transition: opacity 0 ease, width 0 ease;
-        transition-delay: 5s;
+        transition-delay: 2s;
       }
 
       &::after {
@@ -358,7 +391,7 @@ body {
       &:hover {
         box-shadow: 0 10px 20px 0 rgba(#202024, 0.12);
         opacity: 1;
-        transition-duration: 5s;
+        transition-duration: 2s;
 
         &::before {
           width: 100%;
@@ -456,7 +489,7 @@ body {
       }
     }
     .concept-cards {
-      margin-top: 0;
+      margin: 15rem 0;
       display: flex;
       flex-direction: column;
       .trade-card,
@@ -469,7 +502,51 @@ body {
   }
 }
 .email-card {
-  height: 300px;
-  background-color: #000;
+  margin-top: 5rem;
+  height: 200px;
+  background-image: url("../assets/images/veges_email.jpeg");
+  background-size: cover;
+  background-position: center center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .white-cover {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      transition: 2s;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+    .email-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .email-label {
+        color: white;
+        text-align: center;
+        letter-spacing: 2px;
+        font-size: 1.25rem;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px black;
+      }
+      .input-group {
+        .subscribe-btn {
+          background-color: $primaryColor;
+          color: $secondaryColor;
+          font-weight: 700;
+          letter-spacing: 2px;
+          &:hover {
+            background-color: rgb(47, 222, 149);
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 767.98px) {
+  }
 }
 </style>
