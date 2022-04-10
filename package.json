@@ -20,6 +20,7 @@
     "vee-validate": "^4.5.10",
     "vue": "^3.0.0",
     "vue-axios": "^3.4.1",
+    "vue-gapi": "^2.0.0",
     "vue-i18n": "^9.1.9",
     "vue-loading-overlay": "^5.0.3",
     "vue-meta": "^2.4.0",

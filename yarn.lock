@@ -1127,6 +1127,18 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
+"@types/gapi.auth2@0.0.55":
+  "integrity" "sha512-chmROsbo28jI5or0aRP8X3aBuWkq8jJHj75al/C0BhI/qum8v7XSxxQ9aLpA2ULPWgWSyh6orn9ZCaUSA4iQCA=="
+  "resolved" "https://registry.npmjs.org/@types/gapi.auth2/-/gapi.auth2-0.0.55.tgz"
+  "version" "0.0.55"
+  dependencies:
+    "@types/gapi" "*"
+
+"@types/gapi@*", "@types/gapi@0.0.41":
+  "integrity" "sha512-tmHO66z/f91JZCDqinj/nNvQEszsz/hBT4+MvCSKT5sDzl5Ld/oXZ8WaecCBjRLw2uWKUInUHM9MhEXWkOiNjw=="
+  "resolved" "https://registry.npmjs.org/@types/gapi/-/gapi-0.0.41.tgz"
+  "version" "0.0.41"
+
 "@types/glob@^7.1.1":
   "integrity" "sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA=="
   "resolved" "https://registry.npmjs.org/@types/glob/-/glob-7.2.0.tgz"
@@ -8708,6 +8720,14 @@
     "esquery" "^1.4.0"
     "lodash" "^4.17.21"
     "semver" "^6.3.0"
+
+"vue-gapi@^2.0.0":
+  "integrity" "sha512-YxpwoudRyUm+UBZ0BOSJRIeOk5uT7rxtzog5e4mHWnPcHPO/J2gcejVGRD+4TV5GqH+80jYyUyKStqGhOXO3DA=="
+  "resolved" "https://registry.npmjs.org/vue-gapi/-/vue-gapi-2.0.0.tgz"
+  "version" "2.0.0"
+  dependencies:
+    "@types/gapi" "0.0.41"
+    "@types/gapi.auth2" "0.0.55"
 
 "vue-hot-reload-api@^2.3.0":
   "integrity" "sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog=="

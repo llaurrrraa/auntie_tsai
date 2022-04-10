@@ -16,6 +16,8 @@ import "vue-loading-overlay/dist/vue-loading.css"; //style
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+import VueGAPI from "vue-gapi";
+
 import App from "./App.vue";
 import router from "./router";
 
@@ -36,6 +38,14 @@ configure({
 // 設定預設語系
 setLocale('zh_TW');
 
+const apiConfig = {
+  apiKey: "AIzaSyArwxDe7mUSqB1emXXh_sI_rbRarKwCpus",
+  clientId: "397140815106-082h1dnna9h3giqj0nufm82di655gand.apps.googleusercontent.com",
+  discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+  scope: "https://www.googleapis.com/auth/spreadsheets" // See, edit, create, and delete your spreadsheets in Google Drive
+  // see all available scopes here: https://developers.google.com/identity/protocols/googlescopes'
+};
+
 const app = createApp(App);
 app.component('Loading', Loading)
 app.component('Form', Form)
@@ -43,5 +53,6 @@ app.component('Field', Field)
 app.component('ErrorMessage', ErrorMessage)
 app.use(VueAxios, axios, Loading);
 app.use(VueSweetalert2, options);
+app.use(VueGAPI, apiConfig);
 app.use(router);
 app.mount("#app");

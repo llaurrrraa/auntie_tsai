@@ -100,30 +100,37 @@
   <div class="email-card">
     <div class="white-cover">
       <div class="email-group col-lg-4">
-          <label for="emailInput" class="form-label email-label"
-            >訂閱電子報獲得 8 折折扣碼！</label
+        <label for="emailInput" class="form-label email-label"
+          >訂閱電子報獲得 8 折折扣碼！</label
+        >
+        <div class="input-group">
+          <input
+            name="entry.1457589512"
+            type="text"
+            class="form-control"
+            id="emailInput"
+            v-model="emailInput"
+          />
+          <button
+            type="btn"
+            class="btn subscribe-btn"
+            @click="getEmail()"
           >
-          <div class="input-group">
-            <input
-              name="entry.1457589512"
-              type="text"
-              class="form-control"
-              id="emailInput"
-              v-model="emailInput"
-            />
-            <button type="btn" class="btn subscribe-btn" @click="getEmail()">
-              訂閱 !
-            </button>
-          </div>
+            訂閱 !
+          </button>
+          
+        </div>
       </div>
     </div>
   </div>
+  <ConfirmCoupon ref="couponModal"/>
   <Footer />
   <Loading :is-loading="isLoading" :is-loading-item="isLoadingItem" />
 </template>
 <script>
 import CategoryBtns from "@/components/CategoryBtns.vue";
 import ProductCard from "@/components/ProductCard.vue";
+import ConfirmCoupon from "@/components/ConfirmCoupon.vue";
 import Footer from "@/components/Footer.vue";
 import Loading from "@/components/Loading.vue";
 import emitter from "@/libraries/emitt.js";
@@ -156,6 +163,7 @@ export default {
     ProductCard,
     Footer,
     Loading,
+    ConfirmCoupon,
   },
   methods: {
     getProducts() {
@@ -183,15 +191,8 @@ export default {
       });
     },
     getEmail() {
-      
-      const data = {
-        email: this.emailInput,
-      };
-      const api = `https://script.google.com/macros/s/AKfycbx2utdPpPqs9OGhLqfZCjJsiOXQ16OU_tCBHvEctQ5t_cmlc-BMkTZ1holH2wVHaSb6VQ/exec`;
-      console.log(data);
-      this.$http.get(api, data).then((res) => {
-        console.log(res);
-      });
+      const couponModal = this.$refs.couponModal;
+      couponModal.openModal();
     },
   },
   mounted() {

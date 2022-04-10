@@ -28,9 +28,9 @@
               </div>
               <div class="mb-3">
                 <label for="customRange" class="form-label">折扣：</label>
-                <span class="span-range">{{ range }} ％</span>
+                <span class="span-range">{{ data.percent }} ％</span>
                 <input
-                  v-model="range"
+                  v-model="data.percent"
                   type="range"
                   class="form-range"
                   min="10"
@@ -120,9 +120,9 @@ export default {
     range: function (n) {
       this.data.percent = n;
     },
-    "data.title": function (newValue) {
-      console.log(newValue);
-    },
+    // "data.title": function (newValue) {
+    //   console.log(newValue);
+    // },
     "data.due_date": function (newValue) {
       return Date.parse(newValue);
       
