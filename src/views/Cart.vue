@@ -492,7 +492,6 @@ export default {
       color: #c2c2c2;
       letter-spacing: 2px;
     }
-
     .swiper-product{
       position: relative;
     }
