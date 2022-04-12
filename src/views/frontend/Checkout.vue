@@ -115,9 +115,6 @@ export default {
         .then((res) => {
           this.isLoading = false;
           this.orderData = res.data.orders[0];
-
-          const time = this.orderData.create_at;
-          console.log(time);
           const current = new Date(parseInt(this.orderData.create_at * 1000));
 
           const formatDate = (date) => {

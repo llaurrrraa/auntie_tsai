@@ -111,7 +111,7 @@
             id="emailInput"
             v-model="emailInput"
           />
-          <button type="btn" class="btn subscribe-btn" @click="getEmail()">
+          <button type="button" class="btn subscribe-btn" @click="getEmail()">
             訂閱
           </button>
         </div>
@@ -194,7 +194,6 @@ export default {
       } else {
         const error = document.getElementById("errorMsg");
         error.innerHTML = "請輸入正確的信箱 !!";
-        console.log("請輸入正確的信箱");
       }
     },
   },

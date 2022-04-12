@@ -99,7 +99,7 @@
                   <td class="text-center">
                     <button
                       type="button"
-                      class="btn btn-light"
+                      class="btn btn-liＦght"
                       @click="deleteCart(item.id)"
                     >
                       X
@@ -145,7 +145,11 @@
                 優惠碼
               </button>
             </div>
-            <button class="btn d-block w-100 btn-dark" @click="moveToOrder">
+            <button
+              type="button"
+              class="btn d-block w-100 btn-dark"
+              @click="moveToOrder"
+            >
               前往結帳
             </button>
           </div>
@@ -295,7 +299,6 @@ export default {
     },
     deleteCartAll(item) {
       this.isLoading = true;
-      console.log(item.carts.length);
       if (item.carts.length === 0) {
         this.isLoading = false;
         this.$swal("購物車是空的呦～", "還沒買菜嗎，很多在特價噎！", "error");

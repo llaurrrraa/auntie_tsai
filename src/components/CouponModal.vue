@@ -106,12 +106,11 @@ export default {
         due_date: time,
         code: this.data.code,
       };
-      console.log(dataTime);
       const api = `${process.env.VUE_APP_URL}v2/api/${process.env.VUE_APP_API_PATH}/admin/coupon`;
       this.$http
         .post(api, { data: dataTime })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          console.log();
         })
         .catch((e) => {
           console.dir(e);

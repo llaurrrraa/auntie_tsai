@@ -168,7 +168,6 @@ export default {
               background: #fff;
               border-radius: 12px;
               border: 1px solid rgba(134, 134, 134, 0.3);
-              // box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
               a {
                 width: 70%;
                 text-align: center;

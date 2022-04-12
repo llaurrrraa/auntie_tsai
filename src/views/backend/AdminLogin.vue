@@ -4,7 +4,6 @@
       <h5 class="text-center my-3 title">後台頁面登入</h5>
       <form class="form-signin" @submit.prevent="login">
         <div class="form-floating my-2">
-          <!-- floating component can not miss the placeholder -->
           <input
             type="email"
             class="form-control"
@@ -48,7 +47,6 @@ export default {
   },
   methods: {
     login() {
-      //   console.log(process.env.VUE_APP_URL);
       this.$http
         .post(`${process.env.VUE_APP_URL}v2/admin/signin`, this.user)
         .then((res) => {

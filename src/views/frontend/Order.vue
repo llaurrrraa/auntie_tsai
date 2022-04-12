@@ -124,7 +124,11 @@
               <option value="2">轉帳方式</option>
               <option value="3">LinePay</option>
             </select>
-            <button class="btn d-block w-100 btn-dark" @click="addOrder">
+            <button
+              type="button"
+              class="btn d-block w-100 btn-dark"
+              @click="addOrder"
+            >
               送出訂單
             </button>
           </div>

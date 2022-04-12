@@ -77,6 +77,7 @@ export default {
   }
   a:hover {
     font-weight: 700;
+    cursor: pointer;
   }
   .list-group-item:hover,
   .list-group-item-action:focus {

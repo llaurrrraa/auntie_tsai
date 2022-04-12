@@ -5,7 +5,7 @@
         <CategoryList :products="products"></CategoryList>
       </aside>
       <main class="col-md-10 main">
-        <nav style="" aria-label="breadcrumb">
+        <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
               <router-link to="/products">{{ product.category }}</router-link>
