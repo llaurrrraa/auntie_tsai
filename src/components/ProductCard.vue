@@ -39,6 +39,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import { ShoppingBagIcon } from "@heroicons/vue/outline";
 
@@ -71,6 +72,7 @@ export default {
   mounted() {},
 };
 </script>
+
 <style lang="scss">
 @import "src/assets/all.scss";
 

@@ -59,6 +59,7 @@
     <CouponModal ref="couponModalref"></CouponModal>
   </div>
 </template>
+
 <script>
 import CouponModal from "@/components/CouponModal.vue";
 
@@ -128,6 +129,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 @import "src/assets/all.scss";
 

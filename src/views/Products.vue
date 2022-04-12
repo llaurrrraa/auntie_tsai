@@ -17,6 +17,7 @@
   <Loading :is-loading="isLoading" :is-loading-item="isLoadingItem" />
   <Footer />
 </template>
+
 <script>
 import Loading from "@/components/Loading.vue";
 import ProductCard from "@/components/ProductCard.vue";
@@ -80,6 +81,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
 @import "src/assets/all.scss";
 

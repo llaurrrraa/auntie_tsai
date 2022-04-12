@@ -76,6 +76,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import modalMixins from "@/mixins/modalMixins";
 

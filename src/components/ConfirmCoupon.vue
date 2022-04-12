@@ -34,6 +34,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import modalMixins from "@/mixins/modalMixins";
 
@@ -55,6 +56,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 @import "src/assets/all.scss";
 

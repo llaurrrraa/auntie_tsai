@@ -85,6 +85,7 @@
     ></DelModal>
   </div>
 </template>
+
 <script>
 import ProductModal from "@/components/ProductModal.vue";
 import DelModal from "@/components/DelModal.vue";
@@ -166,6 +167,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 @import "src/assets/all.scss";
 

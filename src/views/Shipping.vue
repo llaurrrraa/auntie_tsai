@@ -88,6 +88,7 @@
   </div>
   <Footer />
 </template>
+
 <script>
 import Footer from "@/components/Footer.vue";
 export default {
@@ -96,6 +97,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 .shipping {
   min-height: calc(100vh - 216px);

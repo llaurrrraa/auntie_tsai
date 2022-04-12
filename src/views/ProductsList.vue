@@ -24,6 +24,7 @@
     </div>
   </loading>
 </template>
+
 <script>
 import ProductCard from "@/components/ProductCard.vue";
 import CategoryList from "@/components/CategoryList.vue";
@@ -82,6 +83,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 @keyframes ldio-ye7pm4xc68n-o {
   0% {

@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <router-link class="navbar-brand" to="/home">
+      <router-link class="navbar-brand" to="/">
         <img
           src="../assets/images/icons/auntieTsai02-icon.png"
           height="60"
@@ -55,15 +55,7 @@
                 <ShoppingBagIcon class="shopping-icon pb-1" />
               </a>
               <span
-                class="
-                  position-absolute
-                  top-10
-                  start-80
-                  translate-middle
-                  badge
-                  rounded-pill
-                  bg-danger
-                "
+                class="position-absolute top-10 start-80 translate-middle badge rounded-pill bg-danger"
                 >{{ cartData.carts.length }}</span
               >
             </div>
@@ -257,6 +249,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 @import "src/assets/all.scss";
 

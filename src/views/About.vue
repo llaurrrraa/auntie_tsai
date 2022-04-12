@@ -37,6 +37,7 @@
   </div>
   <Footer />
 </template>
+
 <script>
 import Footer from "@/components/Footer.vue";
 export default {
@@ -45,6 +46,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 .about {
   min-height: calc(100vh - 216px);

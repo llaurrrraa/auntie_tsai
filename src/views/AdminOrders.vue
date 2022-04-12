@@ -43,6 +43,7 @@
     <Pagination :pages="pagination" @update-page="getOrders" />
   </div>
 </template>
+
 <script>
 import Pagination from "../components/Pagination.vue";
 export default {
@@ -90,6 +91,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 @import "src/assets/all.scss";
 

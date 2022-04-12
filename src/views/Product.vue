@@ -88,6 +88,7 @@
   <Footer />
   <Loading :is-loading="isLoading" :is-loading-item="isLoadingItem" />
 </template>
+
 <script>
 import Loading from "@/components/Loading.vue";
 import ThumbsGallery from "@/components/ThumbsGallery.vue";
@@ -159,6 +160,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 .product {
   letter-spacing: 1px;
@@ -266,9 +268,9 @@ export default {
     }
   }
 }
-@media(max-width:991.98px){
-  .info-bottom{
-    height:500px !important;
+@media (max-width: 992px) {
+  .info-bottom {
+    height: 500px !important;
     margin-bottom: 4rem !important;
   }
 }

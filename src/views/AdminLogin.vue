@@ -35,6 +35,7 @@
   </div>
   <router-view />
 </template>
+
 <script>
 export default {
   data() {
@@ -63,6 +64,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 .login-container {
   min-height: 100vh;

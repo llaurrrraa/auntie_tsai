@@ -111,22 +111,19 @@
             id="emailInput"
             v-model="emailInput"
           />
-          <button
-            type="btn"
-            class="btn subscribe-btn"
-            @click="getEmail()"
-          >
-            訂閱 !
+          <button type="btn" class="btn subscribe-btn" @click="getEmail()">
+            訂閱
           </button>
-          
         </div>
+        <p id="errorMsg"></p>
       </div>
     </div>
   </div>
-  <ConfirmCoupon ref="couponModal"/>
+  <ConfirmCoupon ref="couponModal" />
   <Footer />
   <Loading :is-loading="isLoading" :is-loading-item="isLoadingItem" />
 </template>
+
 <script>
 import CategoryBtns from "@/components/CategoryBtns.vue";
 import ProductCard from "@/components/ProductCard.vue";
@@ -191,8 +188,14 @@ export default {
       });
     },
     getEmail() {
-      const couponModal = this.$refs.couponModal;
-      couponModal.openModal();
+      if (this.emailInput.indexOf("@") != -1) {
+        const couponModal = this.$refs.couponModal;
+        couponModal.openModal();
+      } else {
+        const error = document.getElementById("errorMsg");
+        error.innerHTML = "請輸入正確的信箱 !!";
+        console.log("請輸入正確的信箱");
+      }
     },
   },
   mounted() {
@@ -200,11 +203,27 @@ export default {
   },
 };
 </script>
-<style lang="scss" >
+
+<style lang="scss">
 @import "src/assets/all.scss";
 @import "~sweetalert2/src/variables";
 @import "~sweetalert2/src/sweetalert2";
 @include swiper();
+
+@keyframes shakingError {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(10px);
+  }
+  100% {
+    opacity: 0.5;
+    transform: translateX(-10px);
+  }
+}
 
 html,
 body {
@@ -544,6 +563,16 @@ body {
             background-color: rgb(47, 222, 149);
           }
         }
+      }
+      #errorMsg {
+        margin-top: 0.5rem;
+        letter-spacing: 1px;
+        text-align: center;
+        color: tomato;
+        font-weight: bold;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 5px;
+        animation: shakingError 2s;
       }
     }
   }

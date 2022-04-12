@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="#/home">
+      <a class="navbar-brand" href="#/">
         <img
           src="../assets/images/icons/auntieTsai02-icon.png"
           height="40"
@@ -46,7 +46,7 @@
       <div class="navbar-text me-5">
         <div class="bd-highlight nav-item ms-3">
           <button class="btn btn-outline-primary me-3">
-            <router-link to="/home" class="router-link-right">
+            <router-link to="/" class="router-link-right">
               &#60; 返回前台</router-link
             >
           </button>
@@ -130,6 +130,6 @@ export default {
 }
 .nav-right {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 </style>

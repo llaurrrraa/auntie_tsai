@@ -88,6 +88,7 @@
   </div>
   <Footer />
 </template>
+
 <script>
 import Footer from "@/components/Footer.vue";
 export default {
@@ -143,6 +144,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 @import "src/assets/all.scss";
 
