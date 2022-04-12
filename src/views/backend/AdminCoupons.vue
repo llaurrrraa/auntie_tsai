@@ -29,7 +29,10 @@
             <td>{{ coupon.percent }} ％</td>
             <td>{{ coupon.code }}</td>
             <td>
-              <div v-if="coupon.is_enabled === 1" class="form-check form-switch">
+              <div
+                v-if="coupon.is_enabled === 1"
+                class="form-check form-switch"
+              >
                 <input
                   class="form-check-input"
                   type="checkbox"
@@ -67,8 +70,7 @@ export default {
   data() {
     return {
       isNew: true,
-      coupons: {
-      },
+      coupons: {},
       couponTime: "",
     };
   },
@@ -79,8 +81,8 @@ export default {
     getCoupons() {
       const api = `${process.env.VUE_APP_URL}v2/api/${process.env.VUE_APP_API_PATH}/admin/coupons`;
       this.$http.get(api).then((res) => {
-        res.data.coupons.map(res=>{
-          const time = new Date(parseInt(res.due_date*100));
+        res.data.coupons.map((res) => {
+          const time = new Date(parseInt(res.due_date * 100));
           // console.log(time);
           const formatDate = (date) => {
             const current_time =
@@ -92,32 +94,33 @@ export default {
               " " +
               date.getHours() +
               ":" +
-              date.getMinutes() 
+              date.getMinutes();
             return current_time;
           };
           this.couponTime = formatDate(time);
-        })
+        });
         this.coupons = res.data.coupons;
       });
     },
     createCoupon() {
-      const time = (Date.parse(this.data.due_date))*0.01;
+      const time = Date.parse(this.data.due_date) * 0.01;
       const dataTime = {
-        title:this.data.title,
-        is_enabled:1,
-        percent:parseInt(this.data.percent),
+        title: this.data.title,
+        is_enabled: 1,
+        percent: parseInt(this.data.percent),
         due_date: time,
-        code:this.data.code
+        code: this.data.code,
       };
       console.log(dataTime);
       const api = `${process.env.VUE_APP_URL}v2/api/${process.env.VUE_APP_API_PATH}/admin/coupon`;
-      this.$http.post(api,{data:dataTime})
+      this.$http
+        .post(api, { data: dataTime })
         .then((res) => {
           console.log(res);
         })
-        .catch(e => {
+        .catch((e) => {
           console.dir(e);
-        })
+        });
     },
     openModal() {
       const modalComponent = this.$refs.couponModalref;

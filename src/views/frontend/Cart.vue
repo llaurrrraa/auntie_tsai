@@ -48,7 +48,7 @@
                 <tr v-for="item in cartData.carts" :key="item.product_id">
                   <td class="text-center td-title">{{ item.product.title }}</td>
                   <td>
-                    <img :src="item.product.imageUrl" />
+                    <img :src="item.product.imageUrl" alt="product_img" />
                   </td>
                   <td class="text-center">
                     <div class="input-group">
@@ -493,13 +493,13 @@ export default {
       color: #c2c2c2;
       letter-spacing: 2px;
     }
-    .swiper-product{
+    .swiper-product {
       position: relative;
     }
     .swiper-button-prev,
     .swiper-button-next {
       position: absolute;
-      top:100px;
+      top: 100px;
     }
   }
 }

@@ -182,7 +182,7 @@ export default {
       const order = this.form;
       const swalWithBootstrapButtons = swal.mixin({
         customClass: {
-          confirmButton: "btn btn-dark",
+          confirmButton: "btn btn-info",
           cancelButton: "btn btn-outline-danger",
         },
         buttonsStyling: false,
@@ -198,18 +198,16 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            this.$http.post(api, { data: order }).then((res) => {
-              console.log(res);
+            this.$http.post(api, { data: order }).then(() => {
+              swalWithBootstrapButtons.fire(
+                "成功送出訂單!",
+                "請耐心等待物流配送",
+                "success"
+              );
+              this.$router.push("/checkout");
             });
-            swalWithBootstrapButtons.fire(
-              "成功送出訂單!",
-              "請耐心等待物流配送",
-              "success"
-            );
-            this.$router.push("/checkout");
           }
         });
-
       emitter.emit("getCart");
     },
   },

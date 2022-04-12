@@ -33,7 +33,7 @@
           </thead>
           <tbody>
             <tr v-for="(item, index) in orderData.products" :key="index">
-              <td><img :src="item.product.imageUrl" alt="" /></td>
+              <td><img :src="item.product.imageUrl" :alt="`${item}_img`" /></td>
               <td class="product-title">
                 <span>{{ item.product.title }}</span>
               </td>
@@ -234,7 +234,7 @@ export default {
             font-weight: 700;
             background-color: $primaryColor;
             color: $secondaryColor;
-            padding:5px;
+            padding: 5px;
           }
         }
       }

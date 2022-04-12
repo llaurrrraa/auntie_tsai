@@ -3,72 +3,72 @@ import { createRouter, createWebHashHistory } from "vue-router";
 const routes = [
   {
     path: "/",
-    component: () => import("../views/Nav.vue"),
+    component: () => import("../views/frontend/Nav.vue"),
     meta: {
       title: "Entrance",
     },
     children: [
       {
         path: "",
-        component: () => import("../views/Home.vue"),
+        component: () => import("../views/frontend/Home.vue"),
       },
       {
         path: "about",
-        component: () => import("../views/About.vue"),
+        component: () => import("../views/frontend/About.vue"),
       },
       {
         path: "shipping",
-        component: () => import("../views/Shipping.vue"),
+        component: () => import("../views/frontend/Shipping.vue"),
       },
       {
         path: "products", // 多個產品列表
-        component: () => import("../views/Products.vue"),
+        component: () => import("../views/frontend/Products.vue"),
       },
       {
         path: "products/:category", // 分類產品列表
-        component: () => import("../views/ProductsList.vue"),
+        component: () => import("../views/frontend/ProductsList.vue"),
       },
       {
         path: "product/:id", // 單一產品列表
-        component: () => import("../views/Product.vue"),
+        component: () => import("../views/frontend/Product.vue"),
       },
       {
         path: "cart", // 購物車
-        component: () => import("../views/Cart.vue"),
+        component: () => import("../views/frontend/Cart.vue"),
       },
       {
         path: "order", // 訂單
-        component: () => import("../views/Order.vue"),
+        component: () => import("../views/frontend/Order.vue"),
       },
       {
         path: "checkout", // 結帳
-        component: () => import("../views/Checkout.vue"),
+        component: () => import("../views/frontend/Checkout.vue"),
       },
     ],
   },
   {
     path: "/login", // 後台登入
-    component: () => import("../views/AdminLogin.vue"),
+    component: () => import("../views/backend/AdminLogin.vue"),
   },
   {
     path: "/admin", // 後台
-    component: () => import("../views/Admin.vue"),
+    component: () => import("../views/backend/Admin.vue"),
     children: [
       {
         path: "products", // 多個產品列表
-        component: () => import("../views/AdminProducts.vue"),
+        component: () => import("../views/backend/AdminProducts.vue"),
       },
       {
         path: "orders", // 訂單列表
-        component: () => import("../views/AdminOrders.vue"),
+        component: () => import("../views/backend/AdminOrders.vue"),
       },
       {
         path: "coupons", // 優惠卷列表
-        component: () => import("../views/AdminCoupons.vue"),
+        component: () => import("../views/backend/AdminCoupons.vue"),
       },
       {
         path: "posts", // 貼文列表
-        component: () => import("../views/AdminPosts.vue"),
+        component: () => import("../views/backend/AdminPosts.vue"),
       },
     ],
   },

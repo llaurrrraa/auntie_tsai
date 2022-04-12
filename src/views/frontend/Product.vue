@@ -142,7 +142,7 @@ export default {
       this.qty = count;
     },
     addToCart(id) {
-      this.isLoading = true ;
+      this.isLoading = true;
       const data = {
         product_id: id,
         qty: this.qty,

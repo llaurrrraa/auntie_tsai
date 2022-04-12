@@ -3,7 +3,7 @@
     <div class="container">
       <a class="navbar-brand" href="#/">
         <img
-          src="../assets/images/icons/auntieTsai02-icon.png"
+          src="../../assets/images/icons/auntieTsai02-icon.png"
           height="40"
           class="d-inline-block align-text-top"
         />

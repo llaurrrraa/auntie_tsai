@@ -25,7 +25,11 @@
             class="email-input"
             value="#useEmailCoupon"
           />
-          <button class="btn btn-outline-dark coupon-btn" type="button" @click="copyCoupon()">
+          <button
+            class="btn btn-outline-dark coupon-btn"
+            type="button"
+            @click="copyCoupon()"
+          >
             <span class="tooltip-text" id="myTooltip">Copy to clipboard !</span>
             複製
           </button>

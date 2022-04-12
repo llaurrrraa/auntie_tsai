@@ -98,23 +98,24 @@ export default {
   emit: ["create-coupon"],
   methods: {
     createCoupon() {
-      const time = (Date.parse(this.data.due_date))*0.01;
+      const time = Date.parse(this.data.due_date) * 0.01;
       const dataTime = {
-        title:this.data.title,
-        is_enabled:1,
-        percent:parseInt(this.data.percent),
+        title: this.data.title,
+        is_enabled: 1,
+        percent: parseInt(this.data.percent),
         due_date: time,
-        code:this.data.code
+        code: this.data.code,
       };
       console.log(dataTime);
       const api = `${process.env.VUE_APP_URL}v2/api/${process.env.VUE_APP_API_PATH}/admin/coupon`;
-      this.$http.post(api,{data:dataTime})
+      this.$http
+        .post(api, { data: dataTime })
         .then((res) => {
           console.log(res);
         })
-        .catch(e => {
+        .catch((e) => {
           console.dir(e);
-        })
+        });
     },
   },
   watch: {
@@ -126,7 +127,6 @@ export default {
     // },
     "data.due_date": function (newValue) {
       return Date.parse(newValue);
-      
     },
   },
 };

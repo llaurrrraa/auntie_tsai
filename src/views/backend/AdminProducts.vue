@@ -89,7 +89,7 @@
 <script>
 import ProductModal from "@/components/ProductModal.vue";
 import DelModal from "@/components/DelModal.vue";
-import Pagination from "../components/Pagination.vue";
+import Pagination from "../../components/Pagination.vue";
 export default {
   data() {
     return {

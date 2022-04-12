@@ -356,13 +356,13 @@ body {
       }
     }
     .trade-card {
-      background-image: url(../assets/images/trade.jpeg);
+      background-image: url(../../assets/images/trade.jpeg);
     }
     .nice-card {
-      background-image: url(../assets/images/kind-farm.jpeg);
+      background-image: url(../../assets/images/kind-farm.jpeg);
     }
     .organic-card {
-      background-image: url(../assets/images/organic.jpeg);
+      background-image: url(../../assets/images/organic.jpeg);
     }
     .trade-card,
     .nice-card,
@@ -524,7 +524,7 @@ body {
 .email-card {
   margin-top: 5rem;
   height: 200px;
-  background-image: url("../assets/images/veges_email.jpeg");
+  background-image: url("../../assets/images/veges_email.jpeg");
   background-size: cover;
   background-position: center center;
   display: flex;

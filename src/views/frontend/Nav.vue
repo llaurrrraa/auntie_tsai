@@ -3,9 +3,10 @@
     <div class="container-fluid">
       <router-link class="navbar-brand" to="/">
         <img
-          src="../assets/images/icons/auntieTsai02-icon.png"
+          src="../../assets/images/icons/auntieTsai02-icon.png"
           height="60"
           class="d-inline-block align-text-top"
+          alt="auntieTsai_logo"
         />
       </router-link>
       <button
@@ -91,7 +92,11 @@
         <tbody>
           <tr v-for="(item, index) in cartData.carts" :key="index">
             <td>
-              <img :src="item.product.imageUrl" alt="" class="cart-img" />
+              <img
+                :src="item.product.imageUrl"
+                alt="auntieTsai_logo"
+                class="cart-img"
+              />
             </td>
             <td>
               <ul>

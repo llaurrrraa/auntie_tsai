@@ -135,7 +135,11 @@
                   v-model="tempProduct.imageUrl"
                   placeholder="please enter imageUrl"
                 />
-                <img class="img-fluid mt-2" :src="tempProduct.imageUrl" />
+                <img
+                  class="img-fluid mt-2"
+                  :src="tempProduct.imageUrl"
+                  alt="url_img"
+                />
                 <label for="localUpload" class="mt-3">或 上傳圖片</label>
                 <input
                   type="file"
@@ -145,13 +149,20 @@
                   ref="inputFile"
                   @change="localImg"
                 />
-                <img class="img-fluid mt-2" :src="imageUrl" />
+                <img
+                  class="img-fluid mt-2"
+                  :src="imageUrl"
+                  alt="uploaded_img"
+                />
               </div>
               <hr />
               <h5>多圖新增</h5>
               <!-- 是不是陣列的方法（ Array.isArray ），如果是陣列才會跑迴圈 -->
               <div v-if="Array.isArray(tempProduct.imagesUrl)">
-                <div v-for="(image, key) in tempProduct.imagesUrl" :key="key + '1'">
+                <div
+                  v-for="(image, key) in tempProduct.imagesUrl"
+                  :key="key + '1'"
+                >
                   <div class="mb-3">
                     <input
                       type="text"
@@ -159,7 +170,11 @@
                       placeholder="請輸入圖片連結"
                       v-model="tempProduct.imagesUrl[key]"
                     />
-                    <img class="img-fluid" :src="tempProduct.imagesUrl[key]" />
+                    <img
+                      class="img-fluid"
+                      :src="tempProduct.imagesUrl[key]"
+                      alt="temp_img"
+                    />
                   </div>
                 </div>
                 <div
@@ -168,15 +183,19 @@
                     tempProduct.imagesUrl[tempProduct.imagesUrl.length - 1]
                   "
                 >
-                  <button class="btn btn-outline-primary btn-sm d-block w-100"
-                  @click="tempProduct.imagesUrl.push('')">
+                  <button
+                    class="btn btn-outline-primary btn-sm d-block w-100"
+                    @click="tempProduct.imagesUrl.push('')"
+                  >
                     <!-- 新增為字串形式，所以加 ''  -->
                     新增圖片
                   </button>
                 </div>
                 <div v-else>
-                  <button class="btn btn-outline-danger btn-sm d-block w-100"
-                  @click="tempProduct.imagesUrl.pop()">
+                  <button
+                    class="btn btn-outline-danger btn-sm d-block w-100"
+                    @click="tempProduct.imagesUrl.pop()"
+                  >
                     刪除圖片
                   </button>
                 </div>
