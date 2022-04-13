@@ -1,18 +1,17 @@
 <template>
-  <div class="container mt-5">
-    <div class="row">
-      <aside class="col-md-2 aside me-1">
-        <CategoryList @change-category="getProducts"></CategoryList>
-      </aside>
-      <main class="col main">
-        <h6 v-if="categoryTitle != ''">
-          {{ categoryTitle }}
-        </h6>
-        <h6 v-else>所有產品</h6>
-        <hr />
-        <ProductCard :cardProduct="products" @add-to-cart="addToCart" />
-      </main>
-    </div>
+  <div class="products-container container-fluid mt-5 row">
+    <aside class="col-md-2 aside me-1">
+      <CategoryList @change-category="getProducts"></CategoryList>
+    </aside>
+    <main class="col-md-8 main">
+      <MainBanner @change-page="getProducts"/>
+      <h6 v-if="categoryTitle != ''">
+        {{ categoryTitle }}
+      </h6>
+      <h6 v-else>所有產品</h6>
+      <hr />
+      <ProductCard :cardProduct="products" @add-to-cart="addToCart" />
+    </main>
   </div>
   <Loading :is-loading="isLoading" :is-loading-item="isLoadingItem" />
   <Footer />
@@ -22,6 +21,7 @@
 import Loading from "@/components/Loading.vue";
 import ProductCard from "@/components/ProductCard.vue";
 import CategoryList from "@/components/CategoryList.vue";
+import MainBanner from "@/components/MainBanner.vue";
 import Footer from "@/components/Footer.vue";
 import emitter from "@/libraries/emitt.js";
 
@@ -40,6 +40,7 @@ export default {
     CategoryList,
     Loading,
     Footer,
+    MainBanner,
   },
   methods: {
     getProducts(category) {
@@ -86,122 +87,122 @@ export default {
 @import "src/assets/all.scss";
 
 * {
-  .container {
-    .row {
-      margin-bottom: 5rem;
-      .main {
-        h6 {
-          margin-left: 1rem;
-          letter-spacing: 1.5px;
-          color: $darkGray;
+  .products-container {
+    margin-bottom: 5rem;
+    justify-content: center;
+    --bs-gutter-x: 1rem;
+    .main {
+      h6 {
+        margin-left: 1rem;
+        letter-spacing: 1.5px;
+        color: $darkGray;
+      }
+      .cards {
+        .card {
+          border: none;
+          box-shadow: 2px 2px 15px 1px rgba(240, 240, 240, 1);
+          border-radius: 10px;
+          min-height: 280px;
         }
-        .cards {
-          .card {
-            border: none;
-            box-shadow: 2px 2px 15px 1px rgba(240, 240, 240, 1);
-            border-radius: 10px;
-            min-height: 280px;
+        .card:hover {
+          transform: scale(1.1, 1.1);
+          transition-duration: 0.5s;
+          box-shadow: 2px 2px 15px 1px rgba(134, 134, 134, 0.3);
+        }
+        .card-body {
+          padding-bottom: 0rem;
+          img {
+            height: 140px;
+            object-fit: cover;
           }
-          .card:hover {
-            transform: scale(1.1, 1.1);
-            transition-duration: 0.5s;
-            box-shadow: 2px 2px 15px 1px rgba(134, 134, 134, 0.3);
-          }
-          .card-body {
-            padding-bottom: 0rem;
-            img {
-              height: 140px;
-              object-fit: cover;
+          .first-line {
+            .card-title {
+              display: inline;
+              font-size: 1.1rem;
+              font-weight: 700;
+              letter-spacing: 1.2px;
             }
-            .first-line {
-              .card-title {
-                display: inline;
-                font-size: 1.1rem;
-                font-weight: 700;
-                letter-spacing: 1.2px;
-              }
-              .card-price {
-                display: inline;
-                float: right;
-                background-color: $primaryColor;
-                color: $secondaryColor;
-                border-radius: 5px;
-                padding: 0 5px;
-                margin-bottom: 0;
-                font-size: 1rem;
-                span {
-                  font-size: 0.7rem;
-                }
+            .card-price {
+              display: inline;
+              float: right;
+              background-color: $primaryColor;
+              color: $secondaryColor;
+              border-radius: 5px;
+              padding: 0 5px;
+              margin-bottom: 0;
+              font-size: 1rem;
+              span {
+                font-size: 0.7rem;
               }
             }
-            .card-text {
-              font-size: 0.9rem;
-              letter-spacing: 1px;
-              color: $darkGray;
+          }
+          .card-text {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: $darkGray;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            del {
+              float: right;
               font-weight: 300;
-              margin-bottom: 0.5rem;
-              del {
-                float: right;
-                font-weight: 300;
-              }
-            }
-            .router-link {
-              color: #000;
-            }
-            .router-link:hover {
-              color: #000000;
             }
           }
-          .card-footer {
+          .router-link {
+            color: #000;
+          }
+          .router-link:hover {
+            color: #000000;
+          }
+        }
+        .card-footer {
+          display: flex;
+          justify-content: space-between;
+          border-top: none;
+          background-color: #fff;
+          border-radius: 10px;
+          padding: 0.5rem 1rem 1rem;
+          .wrapper {
+            height: 40px;
+            min-width: 100px;
             display: flex;
-            justify-content: space-between;
-            border-top: none;
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 0.5rem 1rem 1rem;
-            .wrapper {
-              height: 40px;
-              min-width: 100px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              background: #fff;
-              border-radius: 12px;
-              border: 1px solid rgba(134, 134, 134, 0.3);
-              a {
-                width: 70%;
-                text-align: center;
-                font-size: 1rem;
-                font-weight: 600;
-                cursor: pointer;
-                user-select: none;
-                margin-bottom: 0;
-                text-decoration: none;
-              }
-              .num {
-                max-width: 2rem;
-                text-align: center;
-                border: none;
-                border-right: 2px solid rgba(0, 0, 0, 0.2);
-                border-left: 2px solid rgba(0, 0, 0, 0.2);
-                pointer-events: none;
-                margin-bottom: 0;
-                padding: 0 5px;
-              }
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid rgba(134, 134, 134, 0.3);
+            a {
+              width: 70%;
+              text-align: center;
+              font-size: 1rem;
+              font-weight: 600;
+              cursor: pointer;
+              user-select: none;
+              margin-bottom: 0;
+              text-decoration: none;
             }
-            .btn {
-              background-color: $secondaryColor;
-              border-radius: 50%;
-              width: 40px;
-              height: 40px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              padding: 0;
-              .shoppingbag-icon {
-                color: $primaryColor;
-                width: 23px;
-              }
+            .num {
+              max-width: 2rem;
+              text-align: center;
+              border: none;
+              border-right: 2px solid rgba(0, 0, 0, 0.2);
+              border-left: 2px solid rgba(0, 0, 0, 0.2);
+              pointer-events: none;
+              margin-bottom: 0;
+              padding: 0 5px;
+            }
+          }
+          .btn {
+            background-color: $secondaryColor;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            .shoppingbag-icon {
+              color: $primaryColor;
+              width: 23px;
             }
           }
         }

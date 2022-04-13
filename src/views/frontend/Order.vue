@@ -29,43 +29,50 @@
         </li>
       </ul>
     </div>
-    <div class="order-container row mt-3">
-      <div class="col-lg-8 cart-left my-5 px-5">
-        <Form ref="form" class="row form" v-slot="{ errors }">
-          <div class="col mb-3">
-            <label for="name" class="form-label">｜ 訂購人姓名</label>
-            <Field
-              id="name"
-              name="訂購人姓名"
-              type="text"
-              class="form-control"
-              :class="{ 'is-invalid': errors['訂購人姓名'] }"
-              rules="required"
-              v-model="form.user.name"
-            ></Field>
-            <ErrorMessage
-              name="訂購人姓名"
-              class="invalid-feedback"
-            ></ErrorMessage>
-          </div>
-          <div class="col">
-            <label for="tel" class="form-label">｜ 訂購人手機</label>
-            <Field
-              id="tel"
-              name="訂購人電話"
-              type="tel"
-              class="form-control"
-              :class="{ 'is-invalid': errors['訂購人電話'] }"
-              rules="required|min:8|max:10"
-              v-model="form.user.tel"
-            ></Field>
-            <ErrorMessage
-              name="訂購人電話"
-              class="invalid-feedback"
-            ></ErrorMessage>
+    <Form ref="form" class="row form" v-slot="{ errors }" @submit="addOrder()">
+      <div class="order-container row mt-3">
+        <div class="col-lg-8 cart-left my-5 px-5">
+          <div class="form-first-line mb-3">
+            <div class="col-lg-6 pe-1">
+              <label for="name" class="form-label"
+                ><span id="name-span"></span>｜ 訂購人姓名</label
+              >
+              <Field
+                id="name"
+                name="訂購人姓名"
+                type="text"
+                class="form-control"
+                :class="{ 'is-invalid': errors['訂購人姓名'] }"
+                success-message="Nice and secure!"
+                rules="required"
+                v-model="form.user.name"
+              ></Field>
+              <ErrorMessage
+                name="訂購人姓名"
+                class="invalid-feedback"
+              ></ErrorMessage>
+            </div>
+            <div class="col-lg-6">
+              <label for="tel" class="form-label"
+                ><span></span>｜ 訂購人手機</label
+              >
+              <Field
+                id="tel"
+                name="訂購人電話"
+                type="tel"
+                class="form-control"
+                :class="{ 'is-invalid': errors['訂購人電話'] }"
+                :rules="phoneRule"
+                v-model="form.user.tel"
+              ></Field>
+              <ErrorMessage
+                name="訂購人電話"
+                class="invalid-feedback"
+              ></ErrorMessage>
+            </div>
           </div>
           <div class="col-12 mb-3">
-            <label for="email" class="form-label">｜ email</label>
+            <label for="email" class="form-label"><span></span>｜ email</label>
             <Field
               id="email"
               name="email"
@@ -78,7 +85,9 @@
             <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
           </div>
           <div class="col-12 mb-3">
-            <label for="address" class="form-label">｜ 收貨地址</label>
+            <label for="address" class="form-label"
+              ><span></span>｜ 收貨地址</label
+            >
             <Field
               id="address"
               name="收貨地址"
@@ -105,36 +114,32 @@
               v-model="form.message"
             ></textarea>
           </div>
-        </Form>
-        <a href="#/cart">〈&emsp;返回購物車</a>
-      </div>
-      <div class="col-lg-4 cart-right">
-        <div class="title mb-5"></div>
-        <div class="card mx-auto" style="width: 20rem">
-          <div class="card-body">
-            <h6>訂單資訊</h6>
-            <hr />
-            <div class="total_price">
-              <p class="card-text">總金額</p>
-              <p>$ {{ Math.round(cartData.final_total) }}</p>
+          <a href="#/cart">〈&emsp;返回購物車</a>
+        </div>
+        <div class="col-lg-4 cart-right">
+          <div class="title mb-5"></div>
+          <div class="card mx-auto" style="width: 20rem">
+            <div class="card-body">
+              <h6>訂單資訊</h6>
+              <hr />
+              <div class="total_price">
+                <p class="card-text">總金額</p>
+                <p>$ {{ Math.round(cartData.final_total) }}</p>
+              </div>
+              <select class="form-select mb-3" aria-label="payMethods">
+                <option selected Disabled>請選擇付款方式</option>
+                <option value="1">信用卡付款</option>
+                <option value="2">轉帳方式</option>
+                <option value="3">LinePay</option>
+              </select>
+              <button type="submit" class="btn d-block w-100 btn-dark">
+                送出訂單
+              </button>
             </div>
-            <select class="form-select mb-3" aria-label="payMethods">
-              <option selected Disabled>請選擇付款方式</option>
-              <option value="1">信用卡付款</option>
-              <option value="2">轉帳方式</option>
-              <option value="3">LinePay</option>
-            </select>
-            <button
-              type="button"
-              class="btn d-block w-100 btn-dark"
-              @click="addOrder"
-            >
-              送出訂單
-            </button>
           </div>
         </div>
       </div>
-    </div>
+    </Form>
   </div>
   <Footer />
   <Loading :is-loading="isLoading" :is-loading-item="isLoadingItem" />
@@ -149,6 +154,7 @@ import emitter from "@/libraries/emitt.js";
 export default {
   data() {
     return {
+      validName: false,
       isLoading: false,
       isLoadingItem: "",
       form: {
@@ -170,6 +176,10 @@ export default {
     Loading,
   },
   methods: {
+    phoneRule(value) {
+      const phoneNumber = /^(09)[0-9]{8}$/;
+      return phoneNumber.test(value) ? true : "請輸入正確的手機";
+    },
     getCart() {
       this.isLoading = true;
       this.$http
@@ -212,6 +222,7 @@ export default {
             });
           }
         });
+
       emitter.emit("getCart");
     },
   },
@@ -314,6 +325,12 @@ export default {
         background-color: #000;
         top: 30px;
         left: 10px;
+      }
+    }
+    .cart-left {
+      .form-first-line {
+        display: flex;
+        justify-content: space-between;
       }
     }
     .cart-right {

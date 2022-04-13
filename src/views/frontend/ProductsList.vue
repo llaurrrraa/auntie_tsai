@@ -1,18 +1,17 @@
 <template>
-  <div class="container mt-5">
-    <div class="row">
-      <aside class="col-md-2 aside me-1">
-        <CategoryList @change-category="getListedProducts"></CategoryList>
-      </aside>
-      <main class="col main">
-        <h6 v-if="categoryTitle != ''">
-          {{ categoryTitle }}
-        </h6>
-        <h6 v-else>所有產品</h6>
-        <hr />
-        <ProductCard :cardProduct="products" @add-to-cart="addToCart" />
-      </main>
-    </div>
+  <div class="product-list-container container-fluid mt-5 row">
+    <aside class="col-md-2 aside me-1">
+      <CategoryList @change-category="getListedProducts"></CategoryList>
+    </aside>
+    <main class="col-md-8 main">
+      <MainBanner @change-page="getListedProducts" />
+      <h6 v-if="categoryTitle != ''">
+        {{ categoryTitle }}
+      </h6>
+      <h6 v-else>所有產品</h6>
+      <hr />
+      <ProductCard :cardProduct="products" @add-to-cart="addToCart" />
+    </main>
   </div>
   <Loading :is-loading="isLoading" :is-loading-item="isLoadingItem" />
 </template>
@@ -21,6 +20,7 @@
 import Loading from "@/components/Loading.vue";
 import ProductCard from "@/components/ProductCard.vue";
 import CategoryList from "@/components/CategoryList.vue";
+import MainBanner from "@/components/MainBanner.vue";
 import emitter from "@/libraries/emitt.js";
 
 export default {
@@ -29,12 +29,14 @@ export default {
       products: [],
       isLoading: false,
       categoryTitle: "",
+      isLoadingItem: "",
     };
   },
   components: {
     Loading,
     CategoryList,
     ProductCard,
+    MainBanner,
   },
   methods: {
     getListedProducts(type) {
@@ -68,6 +70,7 @@ export default {
         )
         .then(() => {
           this.isLoadingItem = "";
+          this.$swal("成功加到購物車 !", "詳情請至購物車查看", "success");
           emitter.emit("getCart");
         });
     },
@@ -79,11 +82,17 @@ export default {
 </script>
 
 <style lang="scss">
-.main {
-  h6 {
-    margin-left: 1rem;
-    letter-spacing: 1.5px;
-    color: #9c9c9c;
+@import "src/assets/all.scss";
+.product-list-container {
+  margin-bottom: 5rem;
+  justify-content: center;
+  --bs-gutter-x: 1rem;
+  .main {
+    h6 {
+      margin-left: 1rem;
+      letter-spacing: 1.5px;
+      color: #9c9c9c;
+    }
   }
 }
 </style>

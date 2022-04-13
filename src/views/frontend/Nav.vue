@@ -225,6 +225,7 @@ export default {
     addCart(item) {
       item.qty++;
       this.isLoadingItem = item.id;
+      this.isLoading = true;
       const data = {
         product_id: item.id,
         qty: item.qty,
@@ -235,6 +236,7 @@ export default {
           { data }
         )
         .then(() => {
+          this.isLoading = false;
           this.isLoadingItem = "";
           this.getCart();
         });
