@@ -230,6 +230,7 @@ export default {
     letter-spacing: 2px;
     margin-bottom: 7rem;
     .content {
+      word-break: keep-all;
       position: relative;
       text-align: center;
       padding: 1rem 3rem;

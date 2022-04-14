@@ -14,9 +14,9 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th width="250">id</th>
+            <th style="width: 250px">id</th>
             <th>分類</th>
-            <th>產品名稱</th>
+            <th style="width: 250px">產品名稱</th>
             <th>原價</th>
             <th>售價</th>
             <th>狀態</th>
@@ -25,11 +25,14 @@
         </thead>
         <tbody>
           <tr v-for="item in products" :key="item.id">
-            <td class="text-secondary" style="letter-spacing: 0">
+            <td
+              class="tb-id text-secondary"
+              style="font-size: 14px; letter-spacing: 0"
+            >
               {{ item.id }}
             </td>
             <td>{{ item.category }}</td>
-            <td style="font-weight: bold">{{ item.title }}</td>
+            <td class="tb-title" style="font-weight: bold">{{ item.title }}</td>
             <td>{{ item.origin_price }}</td>
             <td>{{ item.price }}</td>
             <td>
@@ -193,6 +196,17 @@ export default {
   th {
     color: $darkGray;
     font-weight: 300;
+  }
+}
+@media (max-width: 768px) {
+  .ap-table {
+    tbody {
+      .tb-id {
+        font-size: 12px;
+      }
+      .tb-title {
+      }
+    }
   }
 }
 </style>

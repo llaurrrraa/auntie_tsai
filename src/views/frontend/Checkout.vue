@@ -44,7 +44,7 @@
         </table>
         <table
           class="table align-middle table-borderless mb-5"
-          style="font-size: 13px"
+          style="font-size: 14px; color: #8c8c8c"
         >
           <thead>
             <tr>
@@ -66,7 +66,7 @@
         </table>
         <table
           class="table align-middle table-borderless"
-          style="font-size: 13px"
+          style="font-size: 14px; color: #8c8c8c"
         >
           <thead>
             <tr>
@@ -205,7 +205,7 @@ export default {
 }
 .product-form {
   p {
-    font-size: 13px;
+    font-size: 14px;
   }
   .order-title {
     color: $darkGray;
@@ -219,7 +219,7 @@ export default {
           color: #b8b8b8;
           font-weight: 300;
           letter-spacing: 2px;
-          font-size: 13px;
+          font-size: 14px;
         }
       }
       tbody {

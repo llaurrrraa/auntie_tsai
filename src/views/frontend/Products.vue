@@ -4,7 +4,7 @@
       <CategoryList @change-category="getProducts"></CategoryList>
     </aside>
     <main class="col-md-8 main">
-      <MainBanner @change-page="getProducts"/>
+      <MainBanner @change-page="getProducts" />
       <h6 v-if="categoryTitle != ''">
         {{ categoryTitle }}
       </h6>

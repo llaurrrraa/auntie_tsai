@@ -17,7 +17,10 @@
         </thead>
         <tbody>
           <tr v-for="item in orders" :key="item.id">
-            <td class="text-secondary" style="letter-spacing: 0">
+            <td
+              class="text-secondary"
+              style="font-size: 14px; letter-spacing: 0"
+            >
               {{ item.id }}
             </td>
             <td>

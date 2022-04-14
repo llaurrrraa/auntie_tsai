@@ -156,6 +156,8 @@ export default {
     },
     getEmail() {
       if (this.emailInput.indexOf("@") != -1) {
+        const error = document.getElementById("errorMsg");
+        error.innerHTML = "";
         const couponModal = this.$refs.couponModal;
         couponModal.openModal();
       } else {
