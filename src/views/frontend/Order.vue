@@ -194,18 +194,13 @@ export default {
     addOrder() {
       const api = `${process.env.VUE_APP_URL}v2/api/${process.env.VUE_APP_API_PATH}/order`;
       const order = this.form;
-      const swalWithBootstrapButtons = swal.mixin({
-        customClass: {
-          confirmButton: "btn btn-info",
-          cancelButton: "btn btn-outline-danger",
-        },
-        buttonsStyling: false,
-      });
-      swalWithBootstrapButtons
+      swal
         .fire({
           title: "確定要送出訂單嗎?",
           icon: "warning",
           showCancelButton: true,
+          confirmButtonColor: "#65ffbf",
+          cancelButtonColor: "#727272",
           confirmButtonText: "確定",
           cancelButtonText: "取消",
           reverseButtons: true,
@@ -213,11 +208,7 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             this.$http.post(api, { data: order }).then(() => {
-              swalWithBootstrapButtons.fire(
-                "成功送出訂單!",
-                "請耐心等待物流配送",
-                "success"
-              );
+              swal.fire("成功送出訂單!", "請耐心等待物流配送", "success");
               this.$router.push("/checkout");
             });
           }
@@ -362,5 +353,14 @@ export default {
       }
     }
   }
+}
+
+.swal2-styled.swal2-confirm,
+.swal2-styled.swal2-cancel {
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.swal2-styled.swal2-confirm {
+  color: $secondaryColor;
 }
 </style>

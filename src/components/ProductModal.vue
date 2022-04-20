@@ -84,7 +84,6 @@
                 </div>
               </div>
               <hr />
-
               <div class="mb-3">
                 <label for="description" class="form-label">產品描述</label>
                 <textarea
@@ -122,7 +121,6 @@
                 </div>
               </div>
             </div>
-
             <div class="col-sm-4">
               <div class="mb-3">
                 <label for="mainImgUrl" class="form-label"
@@ -135,11 +133,6 @@
                   v-model="tempProduct.imageUrl"
                   placeholder="please enter imageUrl"
                 />
-                <img
-                  class="img-fluid mt-2"
-                  :src="tempProduct.imageUrl"
-                  alt="url_img"
-                />
                 <label for="localUpload" class="mt-3">或 上傳圖片</label>
                 <input
                   type="file"
@@ -149,11 +142,12 @@
                   ref="inputFile"
                   @change="localImg"
                 />
+                <p id="upload_successed"></p>
                 <img
                   class="img-fluid mt-2"
-                  :src="imageUrl"
-                  alt="uploaded_img"
-                />
+                  :src="tempProduct.imageUrl"
+                  alt="url_img"
+                /><br />
               </div>
               <hr />
               <h5>多圖新增</h5>
@@ -241,9 +235,10 @@ import modalMixins from "@/mixins/modalMixins";
 export default {
   data() {
     return {
-      imageUrl: null,
       file: "",
-      tempProduct: {},
+      tempProduct: {
+        imageUrl: "",
+      },
     };
   },
   props: ["product", "isNew"],
@@ -252,6 +247,12 @@ export default {
   watch: {
     product() {
       this.tempProduct = this.product;
+      if (!this.tempProduct.imagesUrl) {
+        this.tempProduct.imagesUrl = [];
+      }
+      if (!this.tempProduct.imageUrl) {
+        this.tempProduct.imagesUrl = "";
+      }
     },
   },
   methods: {
@@ -264,7 +265,11 @@ export default {
         .post(url, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
-        .then(() => {})
+        .then((res) => {
+          const finish = document.getElementById("upload_successed");
+          finish.innerHTML = "新增成功！";
+          this.imageUrl = res.data.imageUrl;
+        })
         .catch((err) => {
           console.dir(err);
         });
@@ -288,6 +293,13 @@ export default {
     background-color: $primaryColor;
     color: $secondaryColor;
     padding: 2px 5px;
+  }
+  #upload_successed {
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 0.5rem;
+    color: coral;
+    letter-spacing: 1px;
   }
 }
 </style>

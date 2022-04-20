@@ -25,7 +25,7 @@
         <tbody>
           <tr v-for="coupon in coupons" :key="coupon.id">
             <td>{{ coupon.title }}</td>
-            <td>{{ couponTime }}</td>
+            <td>{{ coupon.date }}</td>
             <td>{{ coupon.percent }} ％</td>
             <td>{{ coupon.code }}</td>
             <td>
@@ -50,7 +50,11 @@
             </td>
             <td>
               <div class="btn-group">
-                <button type="button" class="btn btn-outline-danger btn-sm">
+                <button
+                  type="button"
+                  class="btn btn-outline-danger btn-sm"
+                  @click="openDelModal(coupon)"
+                >
                   刪除
                 </button>
               </div>
@@ -59,12 +63,17 @@
         </tbody>
       </table>
     </div>
-    <CouponModal ref="couponModalref"></CouponModal>
+    <CouponModal
+      ref="couponModalref"
+      @create-coupon="createCoupon"
+    ></CouponModal>
+    <DelModal :product="coupons" @del-product="delCoupon" ref="delModalref" />
   </div>
 </template>
 
 <script>
 import CouponModal from "@/components/CouponModal.vue";
+import DelModal from "@/components/DelModal.vue";
 
 export default {
   data() {
@@ -72,17 +81,20 @@ export default {
       isNew: true,
       coupons: {},
       couponTime: "",
+      tempCoupon: {},
+      tempDelCoupon: {},
     };
   },
   components: {
     CouponModal,
+    DelModal,
   },
   methods: {
     getCoupons() {
       const api = `${process.env.VUE_APP_URL}v2/api/${process.env.VUE_APP_API_PATH}/admin/coupons`;
       this.$http.get(api).then((res) => {
-        res.data.coupons.map((res) => {
-          const time = new Date(parseInt(res.due_date * 100));
+        this.coupons = res.data.coupons.map((coupon) => {
+          const time = new Date(parseInt(coupon.due_date * 100));
           const formatDate = (date) => {
             const current_time =
               date.getFullYear() +
@@ -96,31 +108,54 @@ export default {
               date.getMinutes();
             return current_time;
           };
-          this.couponTime = formatDate(time);
+          coupon.date = formatDate(time);
+          return coupon;
         });
-        this.coupons = res.data.coupons;
       });
     },
-    createCoupon() {
-      const time = Date.parse(this.data.due_date) * 0.01;
+    createCoupon(data) {
+      console.log(data);
+      this.tempCoupon = { ...data };
+      const time = Date.parse(data.due_date) * 0.01;
       const dataTime = {
-        title: this.data.title,
+        title: data.title,
         is_enabled: 1,
-        percent: parseInt(this.data.percent),
+        percent: parseInt(data.percent),
         due_date: time,
-        code: this.data.code,
+        code: data.code,
       };
       const api = `${process.env.VUE_APP_URL}v2/api/${process.env.VUE_APP_API_PATH}/admin/coupon`;
       this.$http
         .post(api, { data: dataTime })
-        .then(() => {})
+        .then((res) => {
+          console.log(res);
+          const modalComponent = this.$refs.couponModalref;
+          modalComponent.hideModal();
+          this.getCoupons();
+        })
         .catch((e) => {
           console.dir(e);
         });
     },
-    openModal() {
+    openModal(status) {
+      if (status === true) {
+        this.tempCoupon = "";
+      }
       const modalComponent = this.$refs.couponModalref;
       modalComponent.openModal();
+    },
+    openDelModal(coupon) {
+      this.tempDelCoupon = { ...coupon };
+      const delModal = this.$refs.delModalref;
+      delModal.openModal();
+    },
+    delCoupon() {
+      const api = `${process.env.VUE_APP_URL}v2/api/${process.env.VUE_APP_API_PATH}/admin/coupon/${this.tempDelCoupon.id}`;
+      this.$http.delete(api).then(() => {
+        const delModal = this.$refs.delModalref;
+        delModal.hideModal();
+        this.getCoupons();
+      });
     },
   },
   mounted() {

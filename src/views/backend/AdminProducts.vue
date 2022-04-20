@@ -146,6 +146,7 @@ export default {
       }
       this.$http[method](api, { data: this.tempProduct }).then(() => {
         const modalComponent = this.$refs.productModalref;
+        this.$swal("成功", " ", "success");
         modalComponent.hideModal();
         this.getProducts();
       });

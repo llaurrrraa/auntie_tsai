@@ -27,14 +27,18 @@
               {{ date(item.create_at) }}
             </td>
             <td>{{ item.user.email }}</td>
-            <td>{{ item.total }}</td>
+            <td>{{ Math.round(item.total) }}</td>
             <td>
               <span v-if="item.is_paid">已付款</span>
               <span v-else>未付款</span>
             </td>
             <td>
               <div class="btn-group">
-                <button type="button" class="btn btn-outline-danger btn-sm">
+                <button
+                  type="button"
+                  class="btn btn-outline-danger btn-sm"
+                  @click="openModal(item)"
+                >
                   刪除
                 </button>
               </div>
@@ -44,21 +48,25 @@
       </table>
     </div>
     <Pagination :pages="pagination" @update-page="getOrders" />
+    <DelModal :product="orders" @delProduct="deleteOrder" ref="delModalref" />
   </div>
 </template>
 
 <script>
 import Pagination from "../../components/Pagination.vue";
+import DelModal from "../../components/DelModal.vue";
 export default {
   data() {
     return {
       orders: [],
       pagination: {},
       currentPage: 1,
+      tempOrder: [],
     };
   },
   components: {
     Pagination,
+    DelModal,
   },
   methods: {
     date(time) {
@@ -87,6 +95,24 @@ export default {
         this.orders = res.data.orders;
         this.pagination = res.data.pagination;
       });
+    },
+    openModal(item) {
+      this.tempOrder = { ...item };
+      const delModalComponent = this.$refs.delModalref;
+      delModalComponent.openModal();
+    },
+    deleteOrder() {
+      const api = `${process.env.VUE_APP_URL}v2/api/${process.env.VUE_APP_API_PATH}/admin/order/${this.tempOrder.id}`;
+      this.$http
+        .delete(api)
+        .then(() => {
+          const delModalComponent = this.$refs.delModalref;
+          delModalComponent.hideModal();
+          this.getOrders();
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
     },
   },
   mounted() {
